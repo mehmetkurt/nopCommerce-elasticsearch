@@ -1,0 +1,185 @@
+@model ConfigurationModel
+
+@{
+    Layout = "_AdminLayout";
+
+    //page title
+    ViewBag.PageTitle = T($"{ElasticsearchDefaults.LocalizationPrefix}").Text;
+
+    //active menu item (system name)
+    NopHtml.SetActiveMenuItemSystemName(ElasticsearchDefaults.AdminMenuSystemName);
+
+    var customer = await workContext.GetCurrentCustomerAsync();
+
+    const string hideGeneralBlockAttributeName = $"{ElasticsearchDefaults.PluginSystemName}Page.HideGeneralBlock";
+    var hideGeneralBlock = await genericAttributeService.GetAttributeAsync<bool>(customer, hideGeneralBlockAttributeName);
+
+}
+<form asp-controller="Elasticsearch" asp-action="Configure" method="post">
+    <div class="content-header clearfix">
+        <h1 class="float-left">
+            @T($"{ElasticsearchDefaults.LocalizationPrefix}.Configuration")
+        </h1>
+        <div class="float-right">
+            <button type="submit" name="save" class="btn btn-primary">
+                <i class="far fa-save"></i>
+                @T("Admin.Common.Save")
+            </button>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="form-horizontal">
+                @await Component.InvokeAsync(typeof(StoreScopeConfigurationViewComponent))
+
+                <div asp-validation-summary="All"></div>
+
+                <nop-cards id="generalcommon-cards">
+                    <nop-card asp-name="generalcommon-common" asp-icon="fas fa-info"
+                              asp-title="@T($"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.BlockTitle.General")"
+                              asp-hide-block-attribute-name="@hideGeneralBlockAttributeName"
+                              asp-hide="@hideGeneralBlock" asp-advanced="false">
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <div class="col-md-3">
+                                    <nop-override-store-checkbox asp-for="Active_OverrideForStore" asp-input="Active" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                    <nop-label asp-for="Active" />
+                                </div>
+                                <div class="col-md-9">
+                                    <nop-editor asp-for="Active" />
+                                    <span asp-validation-for="ConnectionType"></span>
+                                </div>
+                            </div>
+                            <nop-nested-setting asp-for="Active">
+                                <div class="form-group row">
+                                    <div class="col-md-3">
+                                        <nop-override-store-checkbox asp-for="Hostnames_OverrideForStore" asp-input="Hostnames" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                        <nop-label asp-for="Hostnames" />
+                                    </div>
+                                    <div class="col-md-9">
+                                        <nop-editor asp-for="Hostnames" />
+                                        <span asp-validation-for="Hostnames"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-md-3">
+                                        <nop-override-store-checkbox asp-for="ConnectionType_OverrideForStore" asp-input="ConnectionType" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                        <nop-label asp-for="ConnectionType" />
+                                    </div>
+                                    <div class="col-md-9">
+                                        <nop-select asp-for="ConnectionType" asp-items="Model.AvailableConnectionTypes" />
+                                        <span asp-validation-for="ConnectionType"></span>
+                                    </div>
+                                </div>
+
+                                <nop-nested-setting asp-for="ConnectionType" disable-auto-generation="true">
+                                    <div class="form-group row connection-type-basic">
+                                        <div class="col-md-3">
+                                            <nop-override-store-checkbox asp-for="Username_OverrideForStore" asp-input="Username" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                            <nop-label asp-for="Username" />
+                                        </div>
+                                        <div class="col-md-9">
+                                            <nop-editor asp-for="Username" />
+                                            <span asp-validation-for="Username"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row connection-type-basic">
+                                        <div class="col-md-3">
+                                            <nop-override-store-checkbox asp-for="Password_OverrideForStore" asp-input="Password" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                            <nop-label asp-for="Password" />
+                                        </div>
+                                        <div class="col-md-9">
+                                            <nop-editor asp-for="Password" />
+                                            <span asp-validation-for="Password"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row connection-type-api">
+                                        <div class="col-md-3">
+                                            <nop-override-store-checkbox asp-for="ApiKey_OverrideForStore" asp-input="ApiKey" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                            <nop-label asp-for="ApiKey" />
+                                        </div>
+                                        <div class="col-md-9">
+                                            <nop-editor asp-for="ApiKey" />
+                                            <span asp-validation-for="ApiKey"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row connection-type-cloud">
+                                        <div class="col-md-3">
+                                            <nop-override-store-checkbox asp-for="CloudId_OverrideForStore" asp-input="CloudId" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                            <nop-label asp-for="CloudId" />
+                                        </div>
+                                        <div class="col-md-9">
+                                            <nop-editor asp-for="CloudId" />
+                                            <span asp-validation-for="CloudId"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row connection-type-basic connection-type-api">
+                                        <div class="col-md-3">
+                                            <nop-override-store-checkbox asp-for="UseFingerprint_OverrideForStore" asp-input="UseFingerprint" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                            <nop-label asp-for="UseFingerprint" />
+                                        </div>
+                                        <div class="col-md-9">
+                                            <nop-editor asp-for="UseFingerprint" />
+                                            <span asp-validation-for="UseFingerprint"></span>
+                                        </div>
+                                    </div>
+                                    <nop-nested-setting asp-for="UseFingerprint">
+                                        <div class="form-group row connection-type-basic connection-type-api">
+                                            <div class="col-md-3">
+                                                <nop-override-store-checkbox asp-for="Fingerprint_OverrideForStore" asp-input="Fingerprint" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                                <nop-label asp-for="Fingerprint" />
+                                            </div>
+                                            <div class="col-md-9">
+                                                <nop-editor asp-for="Fingerprint" />
+                                                <span asp-validation-for="Fingerprint"></span>
+                                            </div>
+                                        </div>
+                                    </nop-nested-setting>
+
+                                </nop-nested-setting>
+                            </nop-nested-setting>
+                        </div>
+                    </nop-card>
+                </nop-cards>
+            </div>
+        </div>
+    </section>
+</form>
+
+<script>
+    $(function() {
+        $(@Html.IdFor(model => model.ConnectionType)).change(toggleConnectionType);
+        toggleConnectionType();
+    });
+
+    function toggleConnectionType() {
+        var connectionType = Number.parseInt($('#@Html.IdFor(model => model.ConnectionType)').val());
+
+        switch (connectionType)
+        {
+            case @((int)ConnectionType.Basic):
+                $('.connection-type-api').hideElement();
+                $('.connection-type-cloud').hideElement();
+                $('.connection-type-basic').showElement();
+                break;
+                case @((int)ConnectionType.Api):
+                $('.connection-type-basic').hideElement();
+                $('.connection-type-cloud').hideElement();
+                $('.connection-type-api').showElement();
+                break;
+            case @((int)ConnectionType.Cloud):
+                $('.connection-type-basic').hideElement();
+                $('.connection-type-api').hideElement();
+                $('.connection-type-cloud').showElement();
+                break;
+            default:
+                $('.connection-type-basic').hideElement();
+                $('.connection-type-cloud').hideElement();
+                $('.connection-type-api').hideElement();
+                break;
+        }
+    }
+</script>
