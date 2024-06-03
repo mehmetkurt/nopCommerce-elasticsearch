@@ -1,4 +1,6 @@
-﻿/// <summary>
+﻿namespace Nop.Plugin.Misc.Elasticsearch;
+
+/// <summary>
 /// Contains default values and constants for the Elasticsearch plugin.
 /// </summary>
 public static partial class ElasticsearchDefaults
