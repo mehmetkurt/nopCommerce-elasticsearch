@@ -35,5 +35,3 @@ This plugin is licensed under the GNU General Public License (GPL). See the [LIC
 For corporate support and inquiries, please visit [Code is Life](https://www.codeislife.com.tr).
 
 For any additional inquiries or support, you can also contact Mehmet Kurt via email at [mehmet.kurt@outlook.com](mailto:mehmet.kurt@outlook.com).
-
-<code>(started counting on 03/06/2024)</code>
