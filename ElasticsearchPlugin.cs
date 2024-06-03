@@ -1,26 +1,32 @@
 ﻿using Elastic.Clients.Elasticsearch;
 using Nop.Core;
 using Nop.Core.Domain.Catalog;
+using Nop.Core.Domain.ScheduleTasks;
 using Nop.Plugin.Misc.Elasticsearch.Repositories;
 using Nop.Plugin.Misc.Elasticsearch.Settings;
 using Nop.Services.Catalog;
 using Nop.Services.Configuration;
 using Nop.Services.Localization;
 using Nop.Services.Plugins;
+using Nop.Services.ScheduleTasks;
 using Nop.Services.Security;
 using Nop.Web.Framework;
 using Nop.Web.Framework.Menu;
+using System.Collections.Immutable;
 
 namespace Nop.Plugin.Misc.Elasticsearch;
 
 public class ElasticsearchPlugin : BasePlugin, ISearchProvider, IAdminMenuPlugin
 {
     #region Fields
+    private readonly IImmutableList<ScheduleTask> _scheduleTasks;
+
     private readonly IWebHelper _webHelper;
     private readonly ISettingService _settingService;
     private readonly CatalogSettings _catalogSettings;
     private readonly IPermissionService _permissionService;
     private readonly ILocalizationService _localizationService;
+    private readonly IScheduleTaskService _scheduleTaskService;
     private readonly IElasticsearchRepository<Product> _elasticsearchRepository;
     #endregion
 
@@ -32,6 +38,7 @@ public class ElasticsearchPlugin : BasePlugin, ISearchProvider, IAdminMenuPlugin
         CatalogSettings catalogSettings,
         IPermissionService permissionService,
         ILocalizationService localizationService,
+        IScheduleTaskService scheduleTaskService,
         IElasticsearchRepository<Product> elasticsearchRepository
     )
     {
@@ -40,7 +47,10 @@ public class ElasticsearchPlugin : BasePlugin, ISearchProvider, IAdminMenuPlugin
         _catalogSettings = catalogSettings;
         _permissionService = permissionService;
         _localizationService = localizationService;
+        _scheduleTaskService = scheduleTaskService;
         _elasticsearchRepository = elasticsearchRepository;
+
+        _scheduleTasks = _scheduleTaskService.GetAllTasksAsync().Result?.ToImmutableList();
     }
     #endregion
 
@@ -143,6 +153,43 @@ public class ElasticsearchPlugin : BasePlugin, ISearchProvider, IAdminMenuPlugin
         await _settingService.ClearCacheAsync();
     }
 
+    /// <summary>
+    /// Installs a scheduled transfer task if it does not already exist.
+    /// </summary>
+    /// <param name="name">The name of the task.</param>
+    /// <param name="type">The type of the task.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
+    private async Task InstallTransferTaskAsync(string name, string type)
+    {
+        if (_scheduleTasks.Any(p => p.Type.Equals(type)))
+            return;
+
+        var task = new ScheduleTask
+        {
+            Name = name,
+            Type = type,
+            Seconds = 60,
+            Enabled = false,
+            StopOnError = false
+        };
+
+        await _scheduleTaskService.InsertTaskAsync(task);
+    }
+
+    /// <summary>
+    /// Uninstalls a scheduled transfer task if it exists.
+    /// </summary>
+    /// <param name="type">The type of the task.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
+    private async Task UninstallTransferTaskAsync(string type)
+    {
+        var task = _scheduleTasks.FirstOrDefault(p => p.Type.Equals(type));
+        if (task == null)
+            return;
+
+        await _scheduleTaskService.DeleteTaskAsync(task);
+    }
+
     #endregion
 
     #region Base Plugin Methods
@@ -154,6 +201,26 @@ public class ElasticsearchPlugin : BasePlugin, ISearchProvider, IAdminMenuPlugin
     {
         await InstallSettingsAsync();
         await InstallLocaleResourcesAsync();
+
+        // Install the category transfer task if it does not already exist
+        await InstallTransferTaskAsync(
+            ElasticsearchDefaults.ScheduledTask.CategoryTransferTaskName,
+            ElasticsearchDefaults.ScheduledTask.CategoryTransferTaskType);
+
+        // Install the product transfer task if it does not already exist
+        await InstallTransferTaskAsync(
+            ElasticsearchDefaults.ScheduledTask.ProductTransferTaskName,
+            ElasticsearchDefaults.ScheduledTask.ProductTransferTaskType);
+
+        // Install the product attribute transfer task if it does not already exist
+        await InstallTransferTaskAsync(
+            ElasticsearchDefaults.ScheduledTask.ProductAttributeTransferTaskName,
+            ElasticsearchDefaults.ScheduledTask.ProductAttributeTransferTaskType);
+
+        // Install the product combination transfer task if it does not already exist
+        await InstallTransferTaskAsync(
+            ElasticsearchDefaults.ScheduledTask.ProductCombinationTransferTaskName,
+            ElasticsearchDefaults.ScheduledTask.ProductCombinationTransferTaskType);
     }
 
     /// <summary>
@@ -164,6 +231,19 @@ public class ElasticsearchPlugin : BasePlugin, ISearchProvider, IAdminMenuPlugin
     {
         await UninstallSettingsAsync();
         await UninstallLocaleResourcesAsync();
+
+        // Uninstall the category transfer task if it exists
+        await UninstallTransferTaskAsync(ElasticsearchDefaults.ScheduledTask.CategoryTransferTaskType);
+
+        // Uninstall the product transfer task if it exists
+        await UninstallTransferTaskAsync(ElasticsearchDefaults.ScheduledTask.ProductTransferTaskType);
+
+        // Uninstall the product attribute transfer task if it exists
+        await UninstallTransferTaskAsync(ElasticsearchDefaults.ScheduledTask.ProductAttributeTransferTaskType);
+
+        // Uninstall the product combination transfer task if it exists
+        await UninstallTransferTaskAsync(ElasticsearchDefaults.ScheduledTask.ProductCombinationTransferTaskType);
+
     }
 
     /// <summary>
