@@ -28,7 +28,7 @@ We welcome contributions from the nopCommerce community to enhance and improve t
 
 ## License
 
-This plugin is licensed under the GNU General Public License (GPL). See the [LICENSE](LICENSE) file for details.
+This plugin is licensed under the GNU Affero General Public License (AGPL) v3.0. See the [LICENSE](https://raw.githubusercontent.com/mehmetkurt/nopCommerce-elasticsearch/beta-0-0-1/LICENSE) file for details.
 
 ## Support
 
