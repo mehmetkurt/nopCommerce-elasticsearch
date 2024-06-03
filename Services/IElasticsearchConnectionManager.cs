@@ -1,6 +1,6 @@
 ﻿using Elastic.Clients.Elasticsearch;
 
-namespace Nop.Plugin.Misc.Elasticsearch.Services;
+namespace Nop.Plugin.SearchProvider.Elasticsearch.Services;
 
 /// <summary>
 /// Provides an interface for managing Elasticsearch connections.

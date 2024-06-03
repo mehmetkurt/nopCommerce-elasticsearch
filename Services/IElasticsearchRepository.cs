@@ -3,7 +3,7 @@ using Elastic.Clients.Elasticsearch.QueryDsl;
 using Nop.Core;
 using System.Collections.Immutable;
 
-namespace Nop.Plugin.Misc.Elasticsearch.Repositories;
+namespace Nop.Plugin.SearchProvider.Elasticsearch.Repositories;
 
 /// <summary>
 /// Generic repository for Elasticsearch operations.

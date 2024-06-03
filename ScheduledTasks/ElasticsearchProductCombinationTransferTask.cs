@@ -1,6 +1,6 @@
 ﻿using Nop.Services.ScheduleTasks;
 
-namespace Nop.Plugin.Misc.Elasticsearch.ScheduledTasks
+namespace Nop.Plugin.SearchProvider.Elasticsearch.ScheduledTasks
 {
     /// <summary>
     /// Represents a scheduled task for transferring product combinations to Elasticsearch.

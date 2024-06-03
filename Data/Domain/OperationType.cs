@@ -1,4 +1,4 @@
-﻿namespace Nop.Plugin.Misc.Elasticsearch.Data.Domain;
+﻿namespace Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain;
 public enum OperationType
 {
     Inserted = 10,

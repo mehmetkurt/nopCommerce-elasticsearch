@@ -2,7 +2,7 @@
 using Nop.Web.Framework.Models;
 using Nop.Web.Framework.Mvc.ModelBinding;
 
-namespace Nop.Plugin.Misc.Elasticsearch.Models;
+namespace Nop.Plugin.SearchProvider.Elasticsearch.Models;
 public record ConfigurationModel : BaseNopModel, ISettingsModel
 {
     public int ActiveStoreScopeConfiguration { get; set; }

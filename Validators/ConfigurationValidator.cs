@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
-using Nop.Plugin.Misc.Elasticsearch.Settings;
+using Nop.Plugin.SearchProvider.Elasticsearch.Settings;
 using Nop.Web.Framework.Validators;
 
-namespace Nop.Plugin.Misc.Elasticsearch.Validators;
+namespace Nop.Plugin.SearchProvider.Elasticsearch.Validators;
 public class ElasticsearchSettingsValidator : BaseNopValidator<ElasticsearchSettings>
 {
     public ElasticsearchSettingsValidator()

@@ -1,7 +1,7 @@
-﻿using Nop.Plugin.Misc.Elasticsearch.Settings;
-using Nop.Plugin.Misc.Elasticsearch.Validators;
+﻿using Nop.Plugin.SearchProvider.Elasticsearch.Settings;
+using Nop.Plugin.SearchProvider.Elasticsearch.Validators;
 
-namespace Nop.Plugin.Misc.Elasticsearch.Services;
+namespace Nop.Plugin.SearchProvider.Elasticsearch.Services;
 public class ElasticsearchService : IElasticsearchService
 {
     private readonly ElasticsearchSettings _elasticsearchSettings;

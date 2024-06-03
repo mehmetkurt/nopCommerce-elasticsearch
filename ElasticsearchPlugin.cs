@@ -2,8 +2,8 @@
 using Nop.Core;
 using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.ScheduleTasks;
-using Nop.Plugin.Misc.Elasticsearch.Repositories;
-using Nop.Plugin.Misc.Elasticsearch.Settings;
+using Nop.Plugin.SearchProvider.Elasticsearch.Repositories;
+using Nop.Plugin.SearchProvider.Elasticsearch.Settings;
 using Nop.Services.Catalog;
 using Nop.Services.Configuration;
 using Nop.Services.Localization;
@@ -14,7 +14,7 @@ using Nop.Web.Framework;
 using Nop.Web.Framework.Menu;
 using System.Collections.Immutable;
 
-namespace Nop.Plugin.Misc.Elasticsearch;
+namespace Nop.Plugin.SearchProvider.Elasticsearch;
 
 public class ElasticsearchPlugin : BasePlugin, ISearchProvider, IAdminMenuPlugin
 {

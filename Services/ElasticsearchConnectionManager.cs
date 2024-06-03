@@ -1,11 +1,11 @@
 ﻿using Elastic.Clients.Elasticsearch;
 using Elastic.Transport;
 using Nop.Core;
-using Nop.Plugin.Misc.Elasticsearch.Settings;
+using Nop.Plugin.SearchProvider.Elasticsearch.Settings;
 using Nop.Services.Logging;
 using Nop.Services.Messages;
 
-namespace Nop.Plugin.Misc.Elasticsearch.Services;
+namespace Nop.Plugin.SearchProvider.Elasticsearch.Services;
 
 /// <summary>
 /// Manages the Elasticsearch connection and provides a singleton instance of ElasticsearchClient.

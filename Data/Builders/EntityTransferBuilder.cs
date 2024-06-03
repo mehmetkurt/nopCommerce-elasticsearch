@@ -1,9 +1,9 @@
 ﻿using FluentMigrator;
 using FluentMigrator.Builders.Create.Table;
 using Nop.Data.Mapping.Builders;
-using Nop.Plugin.Misc.Elasticsearch.Data.Domain;
+using Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain;
 
-namespace Nop.Plugin.Misc.Elasticsearch.Data.Builders;
+namespace Nop.Plugin.SearchProvider.Elasticsearch.Data.Builders;
 public class EntityTransferBuilder : NopEntityBuilder<EntityTransfer>
 {
     public override void MapEntity(CreateTableExpressionBuilder table)

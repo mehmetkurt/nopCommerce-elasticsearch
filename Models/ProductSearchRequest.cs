@@ -1,4 +1,4 @@
-﻿namespace Nop.Plugin.Misc.Elasticsearch.Models;
+﻿namespace Nop.Plugin.SearchProvider.Elasticsearch.Models;
 public record ProductSearchRequest
 {
     public string Name { get; set; }

@@ -9,7 +9,7 @@
 		<PackageProjectUrl>https://www.codeislife.com.tr/</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/mehmetkurt/nopCommerce-elasticsearch</RepositoryUrl>
 		<RepositoryType>Git</RepositoryType>
-		<OutputPath>..\..\Presentation\Nop.Web\Plugins\Misc.Elasticsearch</OutputPath>
+		<OutputPath>..\..\Presentation\Nop.Web\Plugins\SearchProvider.Elasticsearch</OutputPath>
 		<OutDir>$(OutputPath)</OutDir>
 		<!--Set this parameter to true to get the dlls copied from the NuGet cache to the output of your project. 
 		You need to set this parameter to true if your plugin has a nuget package 
@@ -20,8 +20,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="plugin.json" />
-	  <None Remove="Views\_ViewImports.cshtml" />
+		<None Remove="plugin.json" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -29,29 +28,29 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Include="plugin.json">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="Views\_ViewImports.cshtml">
-	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </Content>
+		<Content Include="plugin.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Views\_ViewImports.cshtml">
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Elastic.Clients.Elasticsearch" Version="8.13.15" />
+		<PackageReference Include="Elastic.Clients.Elasticsearch" Version="8.13.15" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\Presentation\Nop.Web.Framework\Nop.Web.Framework.csproj" />
-	  <ProjectReference Include="..\..\Presentation\Nop.Web\Nop.Web.csproj" />
+		<ProjectReference Include="..\..\Presentation\Nop.Web.Framework\Nop.Web.Framework.csproj" />
+		<ProjectReference Include="..\..\Presentation\Nop.Web\Nop.Web.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="Views\Configure.cshtml">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
+		<None Update="Views\Configure.cshtml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 
 	<!-- This target execute after "Build" target -->

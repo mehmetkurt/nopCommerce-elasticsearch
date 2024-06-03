@@ -1,10 +1,10 @@
 ﻿using Elastic.Clients.Elasticsearch;
 using Elastic.Clients.Elasticsearch.QueryDsl;
 using Nop.Core;
-using Nop.Plugin.Misc.Elasticsearch.Services;
+using Nop.Plugin.SearchProvider.Elasticsearch.Services;
 using System.Collections.Immutable;
 
-namespace Nop.Plugin.Misc.Elasticsearch.Repositories;
+namespace Nop.Plugin.SearchProvider.Elasticsearch.Repositories;
 
 /// <summary>
 /// Generic repository implementation for Elasticsearch operations.

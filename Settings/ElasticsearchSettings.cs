@@ -1,6 +1,6 @@
 ﻿using Nop.Core.Configuration;
 
-namespace Nop.Plugin.Misc.Elasticsearch.Settings;
+namespace Nop.Plugin.SearchProvider.Elasticsearch.Settings;
 
 /// <summary>
 /// Represents the Elasticsearch settings.

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Nop.Core;
-using Nop.Plugin.Misc.Elasticsearch.Models;
-using Nop.Plugin.Misc.Elasticsearch.Settings;
+using Nop.Plugin.SearchProvider.Elasticsearch.Models;
+using Nop.Plugin.SearchProvider.Elasticsearch.Settings;
 using Nop.Services;
 using Nop.Services.Configuration;
 using Nop.Services.Localization;
@@ -12,7 +12,7 @@ using Nop.Web.Framework;
 using Nop.Web.Framework.Controllers;
 using Nop.Web.Framework.Mvc.Filters;
 
-namespace Nop.Plugin.Misc.Elasticsearch.Controllers;
+namespace Nop.Plugin.SearchProvider.Elasticsearch.Controllers;
 
 [AuthorizeAdmin]
 [Area(AreaNames.ADMIN)]

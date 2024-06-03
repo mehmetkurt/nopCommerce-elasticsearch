@@ -2,10 +2,10 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Nop.Core.Infrastructure;
-using Nop.Plugin.Misc.Elasticsearch.Repositories;
-using Nop.Plugin.Misc.Elasticsearch.Services;
+using Nop.Plugin.SearchProvider.Elasticsearch.Repositories;
+using Nop.Plugin.SearchProvider.Elasticsearch.Services;
 
-namespace Nop.Plugin.Misc.Elasticsearch.Infrastructure;
+namespace Nop.Plugin.SearchProvider.Elasticsearch.Infrastructure;
 public class NopStartup : INopStartup
 {
     public int Order => int.MaxValue;

@@ -1,6 +1,6 @@
 ﻿using Nop.Core;
 
-namespace Nop.Plugin.Misc.Elasticsearch.Data.Domain;
+namespace Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain;
 public class EntityTransfer : BaseEntity
 {
     public string EntityName { get; set; }

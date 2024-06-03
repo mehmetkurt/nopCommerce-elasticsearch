@@ -1,4 +1,4 @@
-﻿namespace Nop.Plugin.Misc.Elasticsearch.Settings;
+﻿namespace Nop.Plugin.SearchProvider.Elasticsearch.Settings;
 public enum ConnectionType
 {
     Api = 10,

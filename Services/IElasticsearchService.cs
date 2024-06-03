@@ -1,4 +1,4 @@
-﻿namespace Nop.Plugin.Misc.Elasticsearch.Services;
+﻿namespace Nop.Plugin.SearchProvider.Elasticsearch.Services;
 public interface IElasticsearchService
 {
     /// <summary>
