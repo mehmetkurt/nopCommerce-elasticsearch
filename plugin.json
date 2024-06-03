@@ -2,7 +2,7 @@
   "Group": "Search Provider",
   "FriendlyName": "Elasticsearch",
   "SystemName": "Misc.Elasticsearch",
-  "Version": "1.0.0",
+  "Version": "0.0.1",
   "SupportedVersions": [ "4.70" ],
   "Author": "code is life",
   "DisplayOrder": 1,
