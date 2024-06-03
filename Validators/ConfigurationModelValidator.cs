@@ -1,11 +1,11 @@
-﻿using Nop.Plugin.SearchProvider.Elasticsearch.Settings;
+﻿using Nop.Plugin.SearchProvider.Elasticsearch.Models;
 using Nop.Services.Localization;
 using Nop.Web.Framework.Validators;
 
 namespace Nop.Plugin.SearchProvider.Elasticsearch.Validators;
-public class ElasticsearchSettingsValidator : BaseNopValidator<ElasticsearchSettings>
+public class ConfigurationModelValidator : BaseNopValidator<ConfigurationModel>
 {
-    public ElasticsearchSettingsValidator(ILocalizationService localizationService)
+    public ConfigurationModelValidator(ILocalizationService localizationService)
     {
         BaseConfigurationValidator.ConfigureCommonRules(this, localizationService);
     }

@@ -1,13 +1,20 @@
 ﻿using Nop.Plugin.SearchProvider.Elasticsearch.Settings;
 using Nop.Plugin.SearchProvider.Elasticsearch.Validators;
+using Nop.Services.Localization;
 
 namespace Nop.Plugin.SearchProvider.Elasticsearch.Services;
 public class ElasticsearchService : IElasticsearchService
 {
+    private readonly ILocalizationService _localizationService;
     private readonly ElasticsearchSettings _elasticsearchSettings;
 
-    public ElasticsearchService(ElasticsearchSettings elasticsearchSettings)
+    public ElasticsearchService
+    (
+        ILocalizationService localizationService,
+        ElasticsearchSettings elasticsearchSettings
+    )
     {
+        _localizationService = localizationService;
         _elasticsearchSettings = elasticsearchSettings;
     }
 
@@ -20,9 +27,9 @@ public class ElasticsearchService : IElasticsearchService
     /// </returns>
     public async Task<bool> IsConfiguredAsync()
     {
-        var validator = new ElasticsearchSettingsValidator();
+        var validator = new ElasticsearchSettingsValidator(_localizationService);
         var validationResult = await validator.ValidateAsync(_elasticsearchSettings);
 
-        return validationResult.IsValid;
+        return validationResult.IsValid && _elasticsearchSettings.Active;
     }
 }

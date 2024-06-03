@@ -32,14 +32,12 @@
         <div class="container-fluid">
             <div class="form-horizontal">
                 @await Component.InvokeAsync(typeof(StoreScopeConfigurationViewComponent))
-
-                <div asp-validation-summary="All"></div>
-
                 <nop-cards id="generalcommon-cards">
                     <nop-card asp-name="generalcommon-common" asp-icon="fas fa-info"
                               asp-title="@T($"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.BlockTitle.General")"
                               asp-hide-block-attribute-name="@hideGeneralBlockAttributeName"
                               asp-hide="@hideGeneralBlock" asp-advanced="false">
+                        <div asp-validation-summary="All"></div>
                         <div class="card-body">
                             <div class="form-group row">
                                 <div class="col-md-3">
@@ -95,17 +93,6 @@
                                             <span asp-validation-for="Password"></span>
                                         </div>
                                     </div>
-                                    <div class="form-group row connection-type-api">
-                                        <div class="col-md-3">
-                                            <nop-override-store-checkbox asp-for="ApiKey_OverrideForStore" asp-input="ApiKey" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
-                                            <nop-label asp-for="ApiKey" />
-                                        </div>
-                                        <div class="col-md-9">
-                                            <nop-editor asp-for="ApiKey" />
-                                            <span asp-validation-for="ApiKey"></span>
-                                        </div>
-                                    </div>
-
                                     <div class="form-group row connection-type-cloud">
                                         <div class="col-md-3">
                                             <nop-override-store-checkbox asp-for="CloudId_OverrideForStore" asp-input="CloudId" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
@@ -114,6 +101,16 @@
                                         <div class="col-md-9">
                                             <nop-editor asp-for="CloudId" />
                                             <span asp-validation-for="CloudId"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row connection-type-api connection-type-cloud">
+                                        <div class="col-md-3">
+                                            <nop-override-store-checkbox asp-for="ApiKey_OverrideForStore" asp-input="ApiKey" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                            <nop-label asp-for="ApiKey" />
+                                        </div>
+                                        <div class="col-md-9">
+                                            <nop-editor asp-for="ApiKey" />
+                                            <span asp-validation-for="ApiKey"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row connection-type-basic connection-type-api">

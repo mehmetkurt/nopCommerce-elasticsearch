@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Nop.Plugin.SearchProvider.Elasticsearch.Validators;
 using Nop.Web.Framework.Models;
 using Nop.Web.Framework.Mvc.ModelBinding;
 
 namespace Nop.Plugin.SearchProvider.Elasticsearch.Models;
-public record ConfigurationModel : BaseNopModel, ISettingsModel
+public record ConfigurationModel : BaseNopModel, ISettingsModel, IConfigurationValidator
 {
     public int ActiveStoreScopeConfiguration { get; set; }
 
