@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Nop.Core.Infrastructure;
-using Nop.Plugin.SearchProvider.Elasticsearch.Models;
 using Nop.Plugin.SearchProvider.Elasticsearch.Repositories;
 using Nop.Plugin.SearchProvider.Elasticsearch.Services;
 
@@ -18,6 +17,7 @@ public class NopStartup : INopStartup
     public void ConfigureServices(IServiceCollection services, IConfiguration configuration)
     {
         services.AddTransient<IElasticsearchService, ElasticsearchService>();
+        services.AddTransient<IEntityTransferService, EntityTransferService>();
         services.AddSingleton<IElasticsearchConnectionManager, ElasticsearchConnectionManager>();
         services.AddTransient(typeof(IElasticsearchRepository<>), typeof(ElasticsearchRepository<>));
     }
