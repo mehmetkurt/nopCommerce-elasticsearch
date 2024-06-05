@@ -1,19 +1,18 @@
 ﻿using Nop.Services.ScheduleTasks;
 
-namespace Nop.Plugin.SearchProvider.Elasticsearch.ScheduledTasks
+namespace Nop.Plugin.SearchProvider.Elasticsearch.ScheduledTasks;
+
+/// <summary>
+/// Represents a scheduled task for transferring categories to Elasticsearch.
+/// </summary>
+public class ElasticsearchCategoryTransferTask : IScheduleTask
 {
     /// <summary>
-    /// Represents a scheduled task for transferring categories to Elasticsearch.
+    /// Executes the scheduled task asynchronously.
     /// </summary>
-    public class ElasticsearchCategoryTransferTask : IScheduleTask
+    /// <returns>A task that represents the asynchronous operation.</returns>
+    public async Task ExecuteAsync()
     {
-        /// <summary>
-        /// Executes the scheduled task asynchronously.
-        /// </summary>
-        /// <returns>A task that represents the asynchronous operation.</returns>
-        public async Task ExecuteAsync()
-        {
-            await Task.CompletedTask;
-        }
+        await Task.CompletedTask;
     }
 }
