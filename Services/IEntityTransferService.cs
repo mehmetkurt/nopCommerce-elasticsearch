@@ -1,18 +1,37 @@
 ﻿using Nop.Core;
 using Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain;
+using System.Collections.Immutable;
 
 namespace Nop.Plugin.SearchProvider.Elasticsearch.Services;
 
 public interface IEntityTransferService
 {
     /// <summary>
-    /// Gets an existing <see cref="EntityTransfer"/> for the specified entity, if it exists.
+    /// Asynchronously retrieves an <see cref="EntityTransfer"/> object from the specified entity.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    /// <param name="entity">The entity to find the transfer for.</param>
-    /// <returns>The existing entity transfer, if found; otherwise, null.</returns>
-    /// <exception cref="ArgumentNullException">Thrown if the entity is null.</exception>
-    Task<EntityTransfer> GetExistsEntityTransferFromEntityAsync<TEntity>(TEntity entity) where TEntity : BaseEntity;
+    /// <param name="entity">The entity from which to retrieve the entity transfer.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains the <see cref="EntityTransfer"/> object.</returns>
+    /// <exception cref="ArgumentException">Thrown when the Id of the entity is zero or negative.</exception>
+    Task<EntityTransfer> GetEntityTransferFromEntityAsync<TEntity>(TEntity entity) where TEntity : BaseEntity;
+
+    /// <summary>
+    /// Asynchronously retrieves a list of <see cref="EntityTransfer"/> objects from the specified entity.
+    /// </summary>
+    /// <typeparam name="TEntity">The type of the entity.</typeparam>
+    /// <param name="entity">The entity from which to retrieve the entity transfers.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a list of <see cref="EntityTransfer"/> objects.</returns>
+    /// <exception cref="ArgumentNullException">Thrown when the entity is null.</exception>
+    Task<IList<EntityTransfer>> GetEntityTransfersFromEntityAsync<TEntity>(TEntity entity) where TEntity : BaseEntity;
+
+    /// <summary>
+    /// Asynchronously retrieves a list of entities of type <typeparamref name="TEntity"/> that are not marked as ignored 
+    /// in the EntityTransfer table and optionally match a specified operation type.
+    /// </summary>
+    /// <typeparam name="TEntity">The type of the entity.</typeparam>
+    /// <param name="operationType">An optional parameter to filter entities by a specific operation type. If null, the filter is not applied.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains an immutable list of entities that are not transferred based on the specified criteria.</returns>
+    Task<ImmutableList<TEntity>> GetNonTransferredEntitiesAsync<TEntity>(OperationType operationType = OperationType.Inserted) where TEntity : BaseEntity;
 
     /// <summary>
     /// Gets an <see cref="EntityTransfer"/> by its identifier.
