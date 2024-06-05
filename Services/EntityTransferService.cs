@@ -83,12 +83,11 @@ public class EntityTransferService : IEntityTransferService
     /// in the EntityTransfer table and optionally match a specified operation type.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    /// <param name="operationType">An optional parameter to filter entities by a specific operation type. If null, the filter is not applied.</param>
     /// <param name="pageIndex">The index of the page to retrieve. Default is 0.</param>
     /// <param name="pageSize">The maximum number of entities to retrieve per page. Default is int.MaxValue.</param>
     /// <param name="getOnlyTotalCount">A boolean indicating whether to retrieve only the total count of entities without fetching the actual entities. Default is false.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains an immutable list of entities that are not transferred based on the specified criteria.</returns>
-    public virtual async Task<ImmutableList<TEntity>> GetNonTransferredEntitiesAsync<TEntity>(OperationType operationType = OperationType.Inserted, int pageIndex = 0, int pageSize = int.MaxValue, bool getOnlyTotalCount = false) where TEntity : BaseEntity
+    public virtual async Task<ImmutableList<TEntity>> GetNonTransferredEntitiesAsync<TEntity>(int pageIndex = 0, int pageSize = int.MaxValue, bool getOnlyTotalCount = false) where TEntity : BaseEntity
     {
         var entityRepository = EngineContext.Current.Resolve<IRepository<TEntity>>();
 
@@ -100,8 +99,8 @@ public class EntityTransferService : IEntityTransferService
             // LINQ query to join entity and entityTransfer tables, and filter entities that are not transferred
             query = from entity in query
                     join entityTransfer in transferQuery
-                        on new { EntityName = entityName, EntityId = entity.Id, Ignored = false, OperationTypeId = (int)operationType }
-                        equals new { entityTransfer.EntityName, entityTransfer.EntityId, entityTransfer.Ignored, entityTransfer.OperationTypeId }
+                        on new { EntityName = entityName, EntityId = entity.Id }
+                        equals new { entityTransfer.EntityName, entityTransfer.EntityId }
                         into transfers
                     from transfer in transfers.DefaultIfEmpty()
                     where transfer == null
