@@ -5,7 +5,7 @@ namespace Nop.Plugin.SearchProvider.Elasticsearch.ScheduledTasks;
 /// <summary>
 /// Represents a scheduled task for transferring product combinations to Elasticsearch.
 /// </summary>
-public class ElasticsearchProductCombinationTransferTask : IScheduleTask
+public class ProductCombinationTransferTask : IScheduleTask
 {
     /// <summary>
     /// Executes the scheduled task asynchronously.

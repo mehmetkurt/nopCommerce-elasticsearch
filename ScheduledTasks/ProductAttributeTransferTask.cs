@@ -3,9 +3,9 @@
 namespace Nop.Plugin.SearchProvider.Elasticsearch.ScheduledTasks;
 
 /// <summary>
-/// Represents a scheduled task for transferring categories to Elasticsearch.
+/// Represents a scheduled task for transferring product attributes to Elasticsearch.
 /// </summary>
-public class ElasticsearchCategoryTransferTask : IScheduleTask
+public class ProductAttributeTransferTask : IScheduleTask
 {
     /// <summary>
     /// Executes the scheduled task asynchronously.

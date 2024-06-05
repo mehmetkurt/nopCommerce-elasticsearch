@@ -18,7 +18,7 @@ public static partial class ElasticsearchDefaults
         /// <summary>
         /// Specifies the system name of the scheduled task for transferring categories to Elasticsearch.
         /// </summary>
-        public static string CategoryTransferTaskType => "Nop.Plugin.SearchProvider.Elasticsearch.ScheduledTasks.ElasticsearchCategoryTransferTask, Nop.Plugin.SearchProvider.Elasticsearch";
+        public static string CategoryTransferTaskType => "Nop.Plugin.SearchProvider.Elasticsearch.ScheduledTasks.CategoryTransferTask, Nop.Plugin.SearchProvider.Elasticsearch";
 
         /// <summary>
         /// Specifies the name of the scheduled task for transferring products to Elasticsearch.
@@ -28,7 +28,7 @@ public static partial class ElasticsearchDefaults
         /// <summary>
         /// Specifies the system name of the scheduled task for transferring products to Elasticsearch.
         /// </summary>
-        public static string ProductTransferTaskType => "Nop.Plugin.SearchProvider.Elasticsearch.ScheduledTasks.ElasticsearchProductTransferTask, Nop.Plugin.SearchProvider.Elasticsearch";
+        public static string ProductTransferTaskType => "Nop.Plugin.SearchProvider.Elasticsearch.ScheduledTasks.ProductTransferTask, Nop.Plugin.SearchProvider.Elasticsearch";
 
         /// <summary>
         /// Specifies the name of the scheduled task for transferring product attributes to Elasticsearch.
@@ -38,7 +38,7 @@ public static partial class ElasticsearchDefaults
         /// <summary>
         /// Specifies the system name of the scheduled task for transferring product attributes to Elasticsearch.
         /// </summary>
-        public static string ProductAttributeTransferTaskType => "Nop.Plugin.SearchProvider.Elasticsearch.ScheduledTasks.ElasticsearchProductAttributeTransferTask, Nop.Plugin.SearchProvider.Elasticsearch";
+        public static string ProductAttributeTransferTaskType => "Nop.Plugin.SearchProvider.Elasticsearch.ScheduledTasks.ProductAttributeTransferTask, Nop.Plugin.SearchProvider.Elasticsearch";
 
         /// <summary>
         /// Specifies the name of the scheduled task for transferring product combinations to Elasticsearch.
@@ -48,6 +48,6 @@ public static partial class ElasticsearchDefaults
         /// <summary>
         /// Specifies the system name of the scheduled task for transferring product combinations to Elasticsearch.
         /// </summary>
-        public static string ProductCombinationTransferTaskType => "Nop.Plugin.SearchProvider.Elasticsearch.ScheduledTasks.ElasticsearchProductCombinationTransferTask, Nop.Plugin.SearchProvider.Elasticsearch";
+        public static string ProductCombinationTransferTaskType => "Nop.Plugin.SearchProvider.Elasticsearch.ScheduledTasks.ProductCombinationTransferTask, Nop.Plugin.SearchProvider.Elasticsearch";
     }
 }
