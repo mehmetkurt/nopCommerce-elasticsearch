@@ -30,8 +30,11 @@ public interface IEntityTransferService
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <param name="operationType">An optional parameter to filter entities by a specific operation type. If null, the filter is not applied.</param>
+    /// <param name="pageIndex">The index of the page to retrieve. Default is 0.</param>
+    /// <param name="pageSize">The maximum number of entities to retrieve per page. Default is int.MaxValue.</param>
+    /// <param name="getOnlyTotalCount">A boolean indicating whether to retrieve only the total count of entities without fetching the actual entities. Default is false.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains an immutable list of entities that are not transferred based on the specified criteria.</returns>
-    Task<ImmutableList<TEntity>> GetNonTransferredEntitiesAsync<TEntity>(OperationType operationType = OperationType.Inserted) where TEntity : BaseEntity;
+    Task<ImmutableList<TEntity>> GetNonTransferredEntitiesAsync<TEntity>(OperationType operationType = OperationType.Inserted, int pageIndex = 0, int pageSize = int.MaxValue, bool getOnlyTotalCount = false) where TEntity : BaseEntity;
 
     /// <summary>
     /// Gets an <see cref="EntityTransfer"/> by its identifier.
