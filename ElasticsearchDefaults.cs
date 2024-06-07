@@ -18,5 +18,15 @@ public static partial class ElasticsearchDefaults
     /// <summary>
     /// Gets or sets the system name of the Elasticsearch plugin's admin menu.
     /// </summary>
-    public const string AdminMenuSystemName = "Elasticsearch Configuration";
+    public const string AdminMenuSystemName = "Elasticsearch";
+
+    /// <summary>
+    /// Gets or sets the system name of the Elasticsearch plugin's admin configuration menu.
+    /// </summary>
+    public const string AdminMenuConfigurationSystemName = "Elasticsearch Configuration";
+
+    /// <summary>
+    /// Gets or sets the system name of the Elasticsearch plugin's admin entity transfer menu.
+    /// </summary>
+    public const string AdminMenuEntityTransferSystemName = "Elasticsearch Entity Transfer";
 }

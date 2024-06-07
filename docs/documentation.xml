@@ -25,6 +25,78 @@
             <param name="eventMessage">Event message</param>
             <returns>A task that represents the asynchronous operation</returns>
         </member>
+        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Controllers.ElasticsearchController">
+            <summary>
+            Represents a controller for configuring Elasticsearch settings in the admin area.
+            </summary>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Controllers.ElasticsearchController.#ctor(Nop.Core.IWorkContext,Nop.Core.IStoreContext,Nop.Services.Configuration.ISettingService,Nop.Services.Security.IPermissionService,Nop.Services.Localization.ILocalizationService,Nop.Services.Messages.INotificationService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Nop.Plugin.SearchProvider.Elasticsearch.Controllers.ElasticsearchController" /> class.
+            </summary>
+            <param name="workContext">The work context.</param>
+            <param name="storeContext">The store context.</param>
+            <param name="settingService">The setting service.</param>
+            <param name="permissionService">The permission service.</param>
+            <param name="localizationService">The localization service.</param>
+            <param name="notificationService">The notification service.</param>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Controllers.ElasticsearchController.PrepareAvailableConnectionTypesAsync(System.Collections.Generic.List{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem})">
+            <summary>
+            Prepares available connection types.
+            </summary>
+            <param name="items">The list of select list items to populate.</param>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Controllers.ElasticsearchController.Configure">
+            <summary>
+            Displays the Elasticsearch configuration page.
+            </summary>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Controllers.ElasticsearchController.Configure(Nop.Plugin.SearchProvider.Elasticsearch.Models.ConfigurationModel)">
+            <summary>
+            Handles the HTTP POST request to save Elasticsearch configuration.
+            </summary>
+            <param name="model">The configuration model.</param>
+        </member>
+        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Controllers.EntityTransferController">
+            <summary>
+            Represents a controller for configuring Elasticsearch settings in the admin area.
+            </summary>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Controllers.EntityTransferController.#ctor(Nop.Services.Security.IPermissionService,Nop.Plugin.SearchProvider.Elasticsearch.Services.IEntityTransferService,Nop.Plugin.SearchProvider.Elasticsearch.Factories.IEntityTransferModelFactory)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Nop.Plugin.SearchProvider.Elasticsearch.Controllers.EntityTransferController"/> class.
+            </summary>
+            <param name="permissionService">The permission service.</param>
+            <param name="entityTransferService">The entity transfer service.</param>
+            <param name="entityTransferModelFactory">The entity transfer model factory.</param>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Controllers.EntityTransferController.List">
+            <summary>
+            Displays the list of entity transfers.
+            </summary>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Controllers.EntityTransferController.List(Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferSearchModel)">
+            <summary>
+            Handles the POST request for retrieving entity transfer data.
+            </summary>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Controllers.EntityTransferController.DeleteSelected(System.Collections.Generic.ICollection{System.Int32})">
+            <summary>
+            Handles the POST request for deleting selected entity transfers.
+            </summary>
+        </member>
+        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Data.Builders.EntityTransferBuilder">
+            <summary>
+            Represents a builder for the EntityTransfer entity.
+            </summary>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Data.Builders.EntityTransferBuilder.MapEntity(FluentMigrator.Builders.Create.Table.CreateTableExpressionBuilder)">
+            <summary>
+            Maps the EntityTransfer entity to its table representation.
+            </summary>
+            <param name="table">The fluent builder for creating a table.</param>
+        </member>
         <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain.EntityTransfer">
             <summary>
             Represents an entity transfer record.
@@ -108,6 +180,16 @@
             Gets or sets the system name of the Elasticsearch plugin's admin menu.
             </summary>
         </member>
+        <member name="F:Nop.Plugin.SearchProvider.Elasticsearch.ElasticsearchDefaults.AdminMenuConfigurationSystemName">
+            <summary>
+            Gets or sets the system name of the Elasticsearch plugin's admin configuration menu.
+            </summary>
+        </member>
+        <member name="F:Nop.Plugin.SearchProvider.Elasticsearch.ElasticsearchDefaults.AdminMenuEntityTransferSystemName">
+            <summary>
+            Gets or sets the system name of the Elasticsearch plugin's admin entity transfer menu.
+            </summary>
+        </member>
         <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.ElasticsearchDefaults.ScheduledTask">
             <summary>
             Contains default values and constants for scheduled tasks related to Elasticsearch.
@@ -152,6 +234,23 @@
             <summary>
             Specifies the system name of the scheduled task for transferring product combinations to Elasticsearch.
             </summary>
+        </member>
+        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.ElasticsearchPlugin">
+            <summary>
+            Represents the Elasticsearch plugin, implementing functionality for search provider and admin menu plugin interfaces.
+            </summary>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.ElasticsearchPlugin.#ctor(Nop.Core.IWebHelper,Nop.Services.Configuration.ISettingService,Nop.Core.Domain.Catalog.CatalogSettings,Nop.Services.Security.IPermissionService,Nop.Services.Localization.ILocalizationService,Nop.Services.ScheduleTasks.IScheduleTaskService,Nop.Plugin.SearchProvider.Elasticsearch.Repositories.IElasticsearchRepository{Nop.Core.Domain.Catalog.Product})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Nop.Plugin.SearchProvider.Elasticsearch.ElasticsearchPlugin"/> class.
+            </summary>
+            <param name="webHelper">The web helper.</param>
+            <param name="settingService">The setting service.</param>
+            <param name="catalogSettings">The catalog settings.</param>
+            <param name="permissionService">The permission service.</param>
+            <param name="localizationService">The localization service.</param>
+            <param name="scheduleTaskService">The schedule task service.</param>
+            <param name="elasticsearchRepository">The Elasticsearch repository.</param>
         </member>
         <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.ElasticsearchPlugin.InstallLocaleResourcesAsync">
             <summary>
@@ -231,13 +330,213 @@
             <param name="rootNode">Root node of the sitemap.</param>
             <returns>A task that represents the asynchronous operation</returns>
         </member>
+        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Factories.EntityTransferModelFactory">
+            <summary>
+            Represents a factory for preparing models related to entity transfers.
+            </summary>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Factories.EntityTransferModelFactory.#ctor(Nop.Services.Localization.ILocalizationService,Nop.Plugin.SearchProvider.Elasticsearch.Services.IEntityTransferService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Nop.Plugin.SearchProvider.Elasticsearch.Factories.EntityTransferModelFactory"/> class.
+            </summary>
+            <param name="localizationService">The localization service.</param>
+            <param name="entityTransferService">The entity transfer service.</param>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Factories.EntityTransferModelFactory.PrepareEntityTransferSearchModelAsync(Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferSearchModel)">
+            <summary>
+            Prepares the entity transfer search model asynchronously.
+            </summary>
+            <param name="searchModel">The entity transfer search model.</param>
+            <returns>The prepared entity transfer search model.</returns>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Factories.EntityTransferModelFactory.PrepareEntityTransferListModelAsync(Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferSearchModel)">
+            <summary>
+            Prepares the entity transfer list model asynchronously.
+            </summary>
+            <param name="searchModel">The entity transfer search model.</param>
+            <returns>The prepared entity transfer list model.</returns>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Factories.EntityTransferModelFactory.PrepareEntityTransferModelAsync(Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferModel,Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain.EntityTransfer,System.Boolean)">
+            <summary>
+            Prepares the entity transfer model asynchronously.
+            </summary>
+            <param name="model">The entity transfer model.</param>
+            <param name="entityTransfer">The entity transfer.</param>
+            <param name="excludeProperties">A value indicating whether to exclude properties.</param>
+            <returns>The prepared entity transfer model.</returns>
+        </member>
+        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Factories.IEntityTransferModelFactory">
+            <summary>
+            Represents a factory for preparing models related to entity transfers.
+            </summary>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Factories.IEntityTransferModelFactory.PrepareEntityTransferSearchModelAsync(Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferSearchModel)">
+            <summary>
+            Prepares the entity transfer search model asynchronously.
+            </summary>
+            <param name="searchModel">The entity transfer search model.</param>
+            <returns>The prepared entity transfer search model.</returns>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Factories.IEntityTransferModelFactory.PrepareEntityTransferListModelAsync(Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferSearchModel)">
+            <summary>
+            Prepares the entity transfer list model asynchronously.
+            </summary>
+            <param name="searchModel">The entity transfer search model.</param>
+            <returns>The prepared entity transfer list model.</returns>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Factories.IEntityTransferModelFactory.PrepareEntityTransferModelAsync(Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferModel,Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain.EntityTransfer,System.Boolean)">
+            <summary>
+            Prepares the entity transfer model asynchronously.
+            </summary>
+            <param name="model">The entity transfer model.</param>
+            <param name="entityTransfer">The entity transfer.</param>
+            <param name="excludeProperties">A value indicating whether to exclude properties.</param>
+            <returns>The prepared entity transfer model.</returns>
+        </member>
+        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Infrastructure.NopStartup">
+            <summary>
+            Represents the startup configuration for the Elasticsearch plugin.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Infrastructure.NopStartup.Order">
+            <summary>
+            Gets the order of this startup configuration implementation.
+            </summary>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Infrastructure.NopStartup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Configures the application services. This method is intentionally left empty.
+            </summary>
+            <param name="application">The application builder.</param>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Infrastructure.NopStartup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Configures the services for the Elasticsearch plugin.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="configuration">The configuration.</param>
+        </member>
+        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Models.MapperConfiguration">
+            <summary>
+            Configures AutoMapper profiles for mapping between domain and model classes.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Models.MapperConfiguration.Order">
+            <summary>
+            Gets the order of this mapper profile implementation.
+            </summary>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Models.MapperConfiguration.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Nop.Plugin.SearchProvider.Elasticsearch.Models.MapperConfiguration"/> class.
+            </summary>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Models.MapperConfiguration.CreateEntityTransferMappings">
+            <summary>
+            Configures mappings between <see cref="T:Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain.EntityTransfer"/> and <see cref="T:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferModel"/>.
+            </summary>
+        </member>
+        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferListModel">
+            <summary>
+            Represents a list model for entity transfers.
+            </summary>
+        </member>
+        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferModel">
+            <summary>
+            Represents the model for transferring entities.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferModel.EntityName">
+            <summary>
+            Gets or sets the name of the entity.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferModel.EntityId">
+            <summary>
+            Gets or sets the identifier of the entity.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferModel.Ignored">
+            <summary>
+            Gets or sets a value indicating whether the transfer is ignored.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferModel.OperationTypeId">
+            <summary>
+            Gets or sets the identifier of the operation type.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferModel.CreatedDateUtc">
+            <summary>
+            Gets or sets the date and time when the transfer was created (in UTC).
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferModel.UpdatedDateUtc">
+            <summary>
+            Gets or sets the date and time when the transfer was last updated (in UTC).
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferModel.OperationTypeName">
+            <summary>
+            Gets or sets the name of the operation type.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferModel.OperationType">
+            <summary>
+            Gets or sets the operation type.
+            </summary>
+        </member>
+        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferSearchModel">
+            <summary>
+            Represents a search model for entity transfers.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferSearchModel.SearchEntityNames">
+            <summary>
+            Gets or sets the list of entity names to search for.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferSearchModel.SearchIgnoredId">
+            <summary>
+            Gets or sets the ID of the search criteria for ignored transfers.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferSearchModel.SearchOperationTypeIds">
+            <summary>
+            Gets or sets the list of operation type IDs to search for.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferSearchModel.AvailableEntityNames">
+            <summary>
+            Gets or sets the available entity names for selection.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferSearchModel.AvailableIgnoreOptions">
+            <summary>
+            Gets or sets the available options for searching ignored transfers.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferSearchModel.AvailableOperationTypes">
+            <summary>
+            Gets or sets the available operation types for selection.
+            </summary>
+        </member>
         <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.ScheduledTasks.CategoryTransferTask">
             <summary>
             Represents a scheduled task for transferring categories to Elasticsearch.
             </summary>
         </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.ScheduledTasks.CategoryTransferTask.#ctor(Nop.Services.Logging.ILogger,Nop.Plugin.SearchProvider.Elasticsearch.Services.IEntityTransferService,Nop.Plugin.SearchProvider.Elasticsearch.Services.IElasticsearchCategoryService,Nop.Plugin.SearchProvider.Elasticsearch.Repositories.IElasticsearchRepository{Nop.Core.Domain.Catalog.Category})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Nop.Plugin.SearchProvider.Elasticsearch.ScheduledTasks.CategoryTransferTask"/> class.
+            </summary>
+            <param name="logger">The logger.</param>
+            <param name="entityTransferService">The entity transfer service.</param>
+            <param name="elasticsearchCategoryService">The Elasticsearch category service.</param>
+            <param name="elasticsearchCategoryRepository">The Elasticsearch category repository.</param>
+        </member>
         <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.ScheduledTasks.CategoryTransferTask.ExecuteAsync">
-            <inheritdoc/>
+            <inheritdoc />
         </member>
         <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.ScheduledTasks.ProductAttributeTransferTask">
             <summary>
@@ -284,6 +583,59 @@
             <param name="entity">Entity</param>
             <returns>A task that represents the asynchronous operation</returns>
         </member>
+        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Services.ElasticsearchCategoryService">
+            <summary>
+            Represents a service for managing categories stored in Elasticsearch, extending the base <see cref="T:Nop.Services.Catalog.CategoryService"/>.
+            </summary>
+            <remarks>
+            This service provides methods to retrieve and manage categories with additional support for Elasticsearch operations.
+            </remarks>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Services.ElasticsearchCategoryService.#ctor(Nop.Services.Security.IAclService,Nop.Core.IWorkContext,Nop.Core.IStoreContext,Nop.Services.Customers.ICustomerService,Nop.Data.IRepository{Nop.Core.Domain.Catalog.Product},Nop.Core.Caching.IStaticCacheManager,Nop.Services.Localization.ILocalizationService,Nop.Services.Stores.IStoreMappingService,Nop.Data.IRepository{Nop.Core.Domain.Catalog.Category},Nop.Data.IRepository{Nop.Core.Domain.Catalog.ProductCategory},Nop.Data.IRepository{Nop.Core.Domain.Discounts.DiscountCategoryMapping})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Nop.Plugin.SearchProvider.Elasticsearch.Services.ElasticsearchCategoryService"/> class.
+            </summary>
+            <param name="aclService">The ACL service used to apply access control list constraints.</param>
+            <param name="workContext">The work context for accessing information about the current request and user.</param>
+            <param name="storeContext">The store context for accessing information about the current store.</param>
+            <param name="customerService">The customer service for handling customer-related operations.</param>
+            <param name="productRepository">The repository for accessing product data.</param>
+            <param name="staticCacheManager">The static cache manager for handling caching operations.</param>
+            <param name="localizationService">The localization service for handling localization operations.</param>
+            <param name="storeMappingService">The store mapping service for applying store mapping constraints.</param>
+            <param name="categoryRepository">The repository for accessing category data.</param>
+            <param name="productCategoryRepository">The repository for accessing product-category mapping data.</param>
+            <param name="discountCategoryMappingRepository">The repository for accessing discount-category mapping data.</param>
+            <remarks>
+            This constructor initializes the service with dependencies necessary for managing categories, 
+            including ACL constraints, store mappings, and localization. 
+            It extends the base <see cref="T:Nop.Services.Catalog.CategoryService"/> to include additional functionality specific to Elasticsearch.
+            </remarks>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Services.ElasticsearchCategoryService.GetAllCategoriesAsync(System.Int32,System.Int32,System.Int32,System.Boolean,System.Nullable{System.Boolean},System.Boolean)">
+            <summary>
+            Gets all categories based on the specified parameters.
+            </summary>
+            <param name="storeId">The store identifier. Use 0 to get all records, or a specific store ID to filter by store.</param>
+            <param name="pageIndex">The index of the page to retrieve. Use 0 for the first page.</param>
+            <param name="pageSize">The number of items per page. Use <see cref="F:System.Int32.MaxValue"/> to retrieve all items.</param>
+            <param name="showHidden">Indicates whether to show hidden records.</param>
+            <param name="overridePublished">
+            Indicates whether to override the "Published" property:
+            - null: Process the "Published" property according to the "showHidden" parameter.
+            - true: Load only "Published" categories.
+            - false: Load only "Unpublished" categories.
+            </param>
+            <param name="getOnlyTotalCount">Indicates whether to only get the total count of items, without retrieving the actual items.</param>
+            <returns>
+            A task that represents the asynchronous operation.
+            The task result contains a paged list of categories if <paramref name="getOnlyTotalCount"/> is false; otherwise, a paged list with only the total count.
+            </returns>
+            <remarks>
+            When <paramref name="getOnlyTotalCount"/> is true, the method returns a paged list containing only the total count of categories,
+            without retrieving the actual category data. This can be useful for quickly determining the number of categories that match the specified criteria.
+            </remarks>
+        </member>
         <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Services.ElasticsearchConnectionManager">
             <summary>
             Manages the Elasticsearch connection and provides a singleton instance of ElasticsearchClient.
@@ -326,12 +678,35 @@
             The task result is a boolean indicating whether the Elasticsearch settings are valid.
             </returns>
         </member>
+        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Services.EntityTransferService">
+            <summary>
+            Provides functionality to manage entity transfers asynchronously. It includes methods to retrieve, insert, update, and delete entity transfers, as well as methods to retrieve non-transferred entities and entity transfers associated with specific entities.
+            </summary>
+        </member>
         <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Services.EntityTransferService.#ctor(Nop.Core.Caching.IShortTermCacheManager,Nop.Data.IRepository{Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain.EntityTransfer})">
             <summary>
             Initializes a new instance of the <see cref="T:Nop.Plugin.SearchProvider.Elasticsearch.Services.EntityTransferService"/> class.
             </summary>
             <param name="shortTermCacheManager">The cache manager.</param>
             <param name="entityTransferRepository">The entity transfer repository.</param>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Services.EntityTransferService.GetEntityTransferAsync``1(System.Int32,System.String)">
+            <summary>
+            Retrieves an entity transfer record for a specific entity type and ID.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="entityId">The identifier of the entity.</param>
+            <param name="entityName">The name of the entity.</param>
+            <returns>
+            A task that represents the asynchronous operation.
+            The task result contains the entity transfer record, or null if no matching record is found.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="entityId"/> is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown if <paramref name="entityName"/> is null or empty.</exception>
+            <remarks>
+            This method retrieves an entity transfer record from the cache if available, or from the repository if not cached.
+            The cache key is based on the entity ID and name, ensuring unique cache entries for different entities.
+            </remarks>
         </member>
         <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Services.EntityTransferService.GetEntityTransferFromEntityAsync``1(``0)">
             <summary>
@@ -362,6 +737,22 @@
             <param name="getOnlyTotalCount">A boolean indicating whether to retrieve only the total count of entities without fetching the actual entities. Default is false.</param>
             <returns>A task that represents the asynchronous operation. The task result contains a paged list of entities that are not transferred based on the specified criteria.</returns>
         </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Services.EntityTransferService.SearchEntityTransfersAsync(System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.Int32},System.Nullable{System.Boolean},System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Searches for entity transfers based on specified criteria.
+            </summary>
+            <param name="entityNames">List of entity names to filter by (optional).</param>
+            <param name="operationTypeIds">List of operation type IDs to filter by (optional).</param>
+            <param name="overrideIgnored">Flag to filter by Ignored status (optional).</param>
+            <param name="pageIndex">Index of the page to retrieve (default is 0).</param>
+            <param name="pageSize">Size of the page to retrieve (default is int.MaxValue).</param>
+            <param name="getOnlyTotalCount">Flag to indicate if only the total count is needed (default is false).</param>
+            <returns>A task that represents the asynchronous operation. The task result contains a paged list of entity transfers.</returns>
+            <remarks>
+            This method constructs a query to filter entity transfers based on the provided criteria.
+            If no criteria are provided, it returns all entity transfers.
+            </remarks>
+        </member>
         <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Services.EntityTransferService.GetEntityTransferByIdAsync(System.Int32,System.Boolean)">
             <summary>
             Gets an <see cref="T:Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain.EntityTransfer"/> by its identifier.
@@ -371,6 +762,14 @@
             <returns>The entity transfer.</returns>
         </member>
         <!-- Badly formed XML comment ignored for member "M:Nop.Plugin.SearchProvider.Elasticsearch.Services.EntityTransferService.InsertEntityTransferAsync(Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain.EntityTransfer)" -->
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Services.EntityTransferService.InsertEntityTransfersAsync(System.Collections.Generic.IList{Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain.EntityTransfer})">
+            <summary>
+            Asynchronously inserts a collection of <see cref="T:Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain.EntityTransfer"/> instances into the database.
+            </summary>
+            <param name="entityTransfers">The collection of entity transfers to insert.</param>
+            <returns>A task representing the asynchronous operation.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if the collection of entity transfers is null.</exception>
+        </member>
         <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Services.EntityTransferService.UpdateEntityTransferAsync(Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain.EntityTransfer)">
             <summary>
             Updates an existing <see cref="T:Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain.EntityTransfer"/>.
@@ -379,6 +778,13 @@
             <returns>A task representing the asynchronous operation.</returns>
             <exception cref="T:System.ArgumentNullException">Thrown if the entity transfer is null.</exception>
         </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Services.EntityTransferService.UpdateEntityTransfersAsync(System.Collections.Generic.IList{Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain.EntityTransfer})">
+            <summary>
+            Updates entity transfers asynchronously.
+            </summary>
+            <param name="entityTransfers">The list of entity transfers to update.</param>
+            <returns>A task representing the asynchronous operation.</returns>
+        </member>
         <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Services.EntityTransferService.DeleteEntityTransferAsync(Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain.EntityTransfer)">
             <summary>
             Deletes an existing <see cref="T:Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain.EntityTransfer"/>.
@@ -386,6 +792,21 @@
             <param name="entityTransfer">The entity transfer to delete.</param>
             <returns>A task representing the asynchronous operation.</returns>
             <exception cref="T:System.ArgumentNullException">Thrown if the entity transfer is null.</exception>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Services.EntityTransferService.DeleteEntityTransfersAsync(System.Collections.Generic.List{System.Int32})">
+            <summary>
+            Deletes entity transfers asynchronously.
+            </summary>
+            <param name="entityTransferIds">The list of entity transfer IDs to delete.</param>
+            <returns>A task representing the asynchronous operation.</returns>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Services.EntityTransferService.GetExistingEntityNames">
+            <summary>
+            Retrieves a list of unique entity names asynchronously from the EntityTransfer table.
+            </summary>
+            <returns>
+            A task representing the asynchronous operation. The task result is a list of strings containing unique entity names.
+            </returns>
         </member>
         <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Services.EntityTransferServiceDefaults.EntityTransferCacheKey">
             <summary>
@@ -409,6 +830,39 @@
             The format of the prefix is: "Nop.elasticsearch.entitytransfer."
             </summary>
         </member>
+        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Services.IElasticsearchCategoryService">
+            <summary>
+            Provides methods to interact with categories stored in Elasticsearch.
+            </summary>
+            <remarks>
+            This interface defines methods for retrieving categories from an Elasticsearch repository.
+            It includes options for filtering categories by store, pagination, visibility, and publication status.
+            </remarks>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Services.IElasticsearchCategoryService.GetAllCategoriesAsync(System.Int32,System.Int32,System.Int32,System.Boolean,System.Nullable{System.Boolean},System.Boolean)">
+            <summary>
+            Gets all categories based on the specified parameters.
+            </summary>
+            <param name="storeId">The store identifier. Use 0 to get all records, or a specific store ID to filter by store.</param>
+            <param name="pageIndex">The index of the page to retrieve. Use 0 for the first page.</param>
+            <param name="pageSize">The number of items per page. Use <see cref="F:System.Int32.MaxValue"/> to retrieve all items.</param>
+            <param name="showHidden">Indicates whether to show hidden records.</param>
+            <param name="overridePublished">
+            Indicates whether to override the "Published" property:
+            - null: Process the "Published" property according to the "showHidden" parameter.
+            - true: Load only "Published" categories.
+            - false: Load only "Unpublished" categories.
+            </param>
+            <param name="getOnlyTotalCount">Indicates whether to only get the total count of items, without retrieving the actual items.</param>
+            <returns>
+            A task that represents the asynchronous operation.
+            The task result contains a paged list of categories if <paramref name="getOnlyTotalCount"/> is false; otherwise, a paged list with only the total count.
+            </returns>
+            <remarks>
+            When <paramref name="getOnlyTotalCount"/> is true, the method returns a paged list containing only the total count of categories,
+            without retrieving the actual category data. This can be useful for quickly determining the number of categories that match the specified criteria.
+            </remarks>
+        </member>
         <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Services.IElasticsearchConnectionManager">
             <summary>
             Provides an interface for managing Elasticsearch connections.
@@ -429,6 +883,29 @@
             A task representing the asynchronous operation. 
             The task result is a boolean indicating whether the Elasticsearch settings are valid.
             </returns>
+        </member>
+        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Services.IEntityTransferService">
+            <summary>
+            Defines methods to manage entity transfers asynchronously. Implementations of this interface provide functionality to retrieve, insert, update, and delete entity transfers, as well as methods to retrieve non-transferred entities and entity transfers associated with specific entities.
+            </summary>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Services.IEntityTransferService.GetEntityTransferAsync``1(System.Int32,System.String)">
+            <summary>
+            Retrieves an entity transfer record for a specific entity type and ID.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="entityId">The identifier of the entity.</param>
+            <param name="entityName">The name of the entity.</param>
+            <returns>
+            A task that represents the asynchronous operation.
+            The task result contains the entity transfer record, or null if no matching record is found.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="entityId"/> is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown if <paramref name="entityName"/> is null or empty.</exception>
+            <remarks>
+            This method retrieves an entity transfer record from the cache if available, or from the repository if not cached.
+            The cache key is based on the entity ID and name, ensuring unique cache entries for different entities.
+            </remarks>
         </member>
         <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Services.IEntityTransferService.GetEntityTransferFromEntityAsync``1(``0)">
             <summary>
@@ -459,6 +936,22 @@
             <param name="getOnlyTotalCount">A boolean indicating whether to retrieve only the total count of entities without fetching the actual entities. Default is false.</param>
             <returns>A task that represents the asynchronous operation. The task result contains a paged list of entities that are not transferred based on the specified criteria.</returns>
         </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Services.IEntityTransferService.SearchEntityTransfersAsync(System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.Int32},System.Nullable{System.Boolean},System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Searches for entity transfers based on specified criteria.
+            </summary>
+            <param name="entityNames">List of entity names to filter by (optional).</param>
+            <param name="operationTypeIds">List of operation type IDs to filter by (optional).</param>
+            <param name="overrideIgnored">Flag to filter by Ignored status (optional).</param>
+            <param name="pageIndex">Index of the page to retrieve (default is 0).</param>
+            <param name="pageSize">Size of the page to retrieve (default is int.MaxValue).</param>
+            <param name="getOnlyTotalCount">Flag to indicate if only the total count is needed (default is false).</param>
+            <returns>A task that represents the asynchronous operation. The task result contains a paged list of entity transfers.</returns>
+            <remarks>
+            This method constructs a query to filter entity transfers based on the provided criteria.
+            If no criteria are provided, it returns all entity transfers.
+            </remarks>
+        </member>
         <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Services.IEntityTransferService.GetEntityTransferByIdAsync(System.Int32,System.Boolean)">
             <summary>
             Gets an <see cref="T:Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain.EntityTransfer"/> by its identifier.
@@ -475,6 +968,14 @@
             <returns>A task representing the asynchronous operation.</returns>
             <exception cref="T:System.ArgumentNullException">Thrown if the entity transfer is null.</exception>
         </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Services.IEntityTransferService.InsertEntityTransfersAsync(System.Collections.Generic.IList{Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain.EntityTransfer})">
+            <summary>
+            Asynchronously inserts a collection of <see cref="T:Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain.EntityTransfer"/> instances into the database.
+            </summary>
+            <param name="entityTransfers">The collection of entity transfers to insert.</param>
+            <returns>A task representing the asynchronous operation.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if the collection of entity transfers is null.</exception>
+        </member>
         <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Services.IEntityTransferService.UpdateEntityTransferAsync(Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain.EntityTransfer)">
             <summary>
             Updates an existing <see cref="T:Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain.EntityTransfer"/>.
@@ -482,6 +983,13 @@
             <param name="entityTransfer">The entity transfer to update.</param>
             <returns>A task representing the asynchronous operation.</returns>
             <exception cref="T:System.ArgumentNullException">Thrown if the entity transfer is null.</exception>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Services.IEntityTransferService.UpdateEntityTransfersAsync(System.Collections.Generic.IList{Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain.EntityTransfer})">
+            <summary>
+            Updates entity transfers asynchronously.
+            </summary>
+            <param name="entityTransfers">The list of entity transfers to update.</param>
+            <returns>A task representing the asynchronous operation.</returns>
         </member>
         <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Services.IEntityTransferService.DeleteEntityTransferAsync(Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain.EntityTransfer)">
             <summary>
@@ -491,17 +999,33 @@
             <returns>A task representing the asynchronous operation.</returns>
             <exception cref="T:System.ArgumentNullException">Thrown if the entity transfer is null.</exception>
         </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Services.IEntityTransferService.DeleteEntityTransfersAsync(System.Collections.Generic.List{System.Int32})">
+            <summary>
+            Deletes entity transfers asynchronously.
+            </summary>
+            <param name="entityTransferIds">The list of entity transfer IDs to delete.</param>
+            <returns>A task representing the asynchronous operation.</returns>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Services.IEntityTransferService.GetExistingEntityNames">
+            <summary>
+            Retrieves a list of existing entity names asynchronously.
+            </summary>
+            <returns>
+            A task representing the asynchronous operation. The task result is a list of strings containing existing entity names.
+            </returns>
+        </member>
         <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Repositories.ElasticsearchRepository`1">
             <summary>
             Generic repository implementation for Elasticsearch operations.
             </summary>
             <typeparam name="TEntity">The type of the entity.</typeparam>
         </member>
-        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Repositories.ElasticsearchRepository`1.#ctor(Nop.Services.Logging.ILogger,Nop.Plugin.SearchProvider.Elasticsearch.Services.IElasticsearchConnectionManager)">
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Repositories.ElasticsearchRepository`1.#ctor(Nop.Services.Logging.ILogger,Nop.Data.IRepository{`0},Nop.Plugin.SearchProvider.Elasticsearch.Services.IElasticsearchConnectionManager)">
             <summary>
             Initializes a new instance of the <see cref="T:Nop.Plugin.SearchProvider.Elasticsearch.Repositories.ElasticsearchRepository`1"/> class.
             </summary>
             <param name="logger"></param>
+            <param name="entityRepository"></param>
             <param name="elasticsearchConnectionManager"></param>
         </member>
         <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Repositories.ElasticsearchRepository`1.GetByIdAsync(System.Int32)">
@@ -517,25 +1041,24 @@
             </summary>
             <param name="entity">The entity to insert.</param>
         </member>
-        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Repositories.ElasticsearchRepository`1.BulkAll(System.Collections.Generic.IEnumerable{`0},System.Action{Elastic.Clients.Elasticsearch.BulkAllRequestDescriptor{`0}})">
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Repositories.ElasticsearchRepository`1.BulkAsync(System.Collections.Generic.IEnumerable{`0},System.Action{Elastic.Clients.Elasticsearch.BulkRequestDescriptor})">
             <summary>
-            Executes a bulk operation to index multiple entities into an Elasticsearch index.
-            If the configuration action is not provided, default settings are applied.
+            Performs a bulk operation asynchronously by adding a collection of specified entity objects as documents into Elasticsearch. If a custom request descriptor is not provided, it defaults to using the specified index name to add documents to the index.
             </summary>
-            <param name="entities">The collection of entities to be indexed.</param>
-            <param name="configure">
-            An optional action to configure the bulk request. If not provided, the method uses default settings:
-            - Index name: Uses the value of _indexName.
-            - BackOffRetries: 2 retries.
-            - BackOffTime: 30 seconds.
-            - RefreshOnCompleted: Automatically refreshes the index upon completion.
-            - MaxDegreeOfParallelism: 4 parallel operations.
-            - Size: 100 entities per batch.
-            </param>
-            <returns>
-            A BulkAllObservable&lt;TEntity&gt; instance representing the bulk operation,
-            which can be subscribed to for handling completion and errors.
-            </returns>
+            <param name="entities">The collection of entity objects to be added.</param>
+            <param name="requestDescriptor">An optional custom action to configure the bulk request descriptor. If not specified, the default action adds documents to the index specified by the `_indexName` field.</param>
+            <returns>A task representing the asynchronous bulk operation, returning a <see cref="T:Elastic.Clients.Elasticsearch.BulkResponse"/> object representing the result of the operation.</returns>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Repositories.ElasticsearchRepository`1.BulkAllAsync(System.Collections.Generic.IEnumerable{`0},System.Action{Elastic.Clients.Elasticsearch.BulkAllResponse},System.Action{System.Exception},System.Action,System.Action{Elastic.Clients.Elasticsearch.BulkAllRequestDescriptor{`0}})">
+            <summary>
+            Asynchronously performs a bulk operation on the specified collection of entities.
+            </summary>
+            <param name="entities">The collection of entities to perform the bulk operation on.</param>
+            <param name="onNext">An optional action to handle the bulk operation response.</param>
+            <param name="onError">An optional action to handle any errors that occur during the bulk operation.</param>
+            <param name="onCompleted">An optional action to handle the completion of the bulk operation.</param>
+            <param name="requestDescriptor">An optional action to configure the bulk request descriptor.</param>
+            <returns>A Task representing the asynchronous operation.</returns>
         </member>
         <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Repositories.ElasticsearchRepository`1.UpdateAsync(`0)">
             <summary>
@@ -586,25 +1109,24 @@
             <param name="entity">The entity to insert.</param>
             <returns>A task that represents the asynchronous operation.</returns>
         </member>
-        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Repositories.IElasticsearchRepository`1.BulkAll(System.Collections.Generic.IEnumerable{`0},System.Action{Elastic.Clients.Elasticsearch.BulkAllRequestDescriptor{`0}})">
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Repositories.IElasticsearchRepository`1.BulkAsync(System.Collections.Generic.IEnumerable{`0},System.Action{Elastic.Clients.Elasticsearch.BulkRequestDescriptor})">
             <summary>
-            Executes a bulk operation to index multiple entities into an Elasticsearch index.
-            If the configuration action is not provided, default settings are applied.
+            Performs a bulk operation asynchronously by adding a collection of specified entity objects as documents into Elasticsearch. If a custom request descriptor is not provided, it defaults to using the specified index name to add documents to the index.
             </summary>
-            <param name="entities">The collection of entities to be indexed.</param>
-            <param name="configure">
-            An optional action to configure the bulk request. If not provided, the method uses default settings:
-            - Index name: Uses the value of _indexName.
-            - BackOffRetries: 2 retries.
-            - BackOffTime: 30 seconds.
-            - RefreshOnCompleted: Automatically refreshes the index upon completion.
-            - MaxDegreeOfParallelism: 4 parallel operations.
-            - Size: 100 entities per batch.
-            </param>
-            <returns>
-            A BulkAllObservable&lt;TEntity&gt; instance representing the bulk operation,
-            which can be subscribed to for handling completion and errors.
-            </returns>
+            <param name="entities">The collection of entity objects to be added.</param>
+            <param name="requestDescriptor">An optional custom action to configure the bulk request descriptor. If not specified, the default action adds documents to the index specified by the `_indexName` field.</param>
+            <returns>A task representing the asynchronous bulk operation, returning a <see cref="T:Elastic.Clients.Elasticsearch.BulkResponse"/> object representing the result of the operation.</returns>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Repositories.IElasticsearchRepository`1.BulkAllAsync(System.Collections.Generic.IEnumerable{`0},System.Action{Elastic.Clients.Elasticsearch.BulkAllResponse},System.Action{System.Exception},System.Action,System.Action{Elastic.Clients.Elasticsearch.BulkAllRequestDescriptor{`0}})">
+            <summary>
+            Asynchronously performs a bulk operation on the specified collection of entities.
+            </summary>
+            <param name="entities">The collection of entities to perform the bulk operation on.</param>
+            <param name="onNext">An optional action to handle the bulk operation response.</param>
+            <param name="onError">An optional action to handle any errors that occur during the bulk operation.</param>
+            <param name="onCompleted">An optional action to handle the completion of the bulk operation.</param>
+            <param name="requestDescriptor">An optional action to configure the bulk request descriptor.</param>
+            <returns>A Task representing the asynchronous operation.</returns>
         </member>
         <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Repositories.IElasticsearchRepository`1.UpdateAsync(`0)">
             <summary>

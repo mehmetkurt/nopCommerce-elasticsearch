@@ -18,5 +18,5 @@ public enum OperationType
     /// <summary>
     /// Indicates that an entity has been deleted.
     /// </summary>
-    Deleted = 30
+    Deleted = 30,
 }

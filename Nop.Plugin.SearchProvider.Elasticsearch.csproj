@@ -29,6 +29,7 @@
 		<Content Include="**\Views\**\*.cshtml" CopyToOutputDirectory="Always" />
 		<Content Include="**\Assets\**\*.*" Exclude="**\Assets\**\*.scss" CopyToOutputDirectory="Always" />
 		<Content Include="**\Themes\**\*.*" Exclude="**\Themes\**\*.scss" CopyToOutputDirectory="Always" />
+		<None Remove="views\entitytransfer\List.cshtml" />
 		<Content Include="logo.png" CopyToOutputDirectory="Always" />
 		<Content Include="plugin.json" CopyToOutputDirectory="Always" />
 	</ItemGroup>

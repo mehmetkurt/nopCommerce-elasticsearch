@@ -14,18 +14,33 @@ using Nop.Web.Framework.Mvc.Filters;
 
 namespace Nop.Plugin.SearchProvider.Elasticsearch.Controllers;
 
+/// <summary>
+/// Represents a controller for configuring Elasticsearch settings in the admin area.
+/// </summary>
 [AuthorizeAdmin]
 [Area(AreaNames.ADMIN)]
 [AutoValidateAntiforgeryToken]
 public class ElasticsearchController : BasePluginController
 {
+    #region Fields
     private readonly IWorkContext _workContext;
     private readonly IStoreContext _storeContext;
     private readonly ISettingService _settingService;
     private readonly IPermissionService _permissionService;
     private readonly ILocalizationService _localizationService;
     private readonly INotificationService _notificationService;
+    #endregion
 
+    #region Ctor
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ElasticsearchController" /> class.
+    /// </summary>
+    /// <param name="workContext">The work context.</param>
+    /// <param name="storeContext">The store context.</param>
+    /// <param name="settingService">The setting service.</param>
+    /// <param name="permissionService">The permission service.</param>
+    /// <param name="localizationService">The localization service.</param>
+    /// <param name="notificationService">The notification service.</param>
     public ElasticsearchController
     (
         IWorkContext workContext,
@@ -43,8 +58,13 @@ public class ElasticsearchController : BasePluginController
         _localizationService = localizationService;
         _notificationService = notificationService;
     }
+    #endregion
 
     #region Utilities
+    /// <summary>
+    /// Prepares available connection types.
+    /// </summary>
+    /// <param name="items">The list of select list items to populate.</param>
     public async Task PrepareAvailableConnectionTypesAsync(List<SelectListItem> items)
     {
         var connectionTypes = await ConnectionType.Basic.ToSelectListAsync();
@@ -63,8 +83,13 @@ public class ElasticsearchController : BasePluginController
 
         items.AddRange(availableConnectionTypes);
     }
+
     #endregion
 
+    /// <summary>
+    /// Displays the Elasticsearch configuration page.
+    /// </summary>
+    [HttpGet]
     public async Task<IActionResult> Configure()
     {
         if (!await _permissionService.AuthorizeAsync(StandardPermissionProvider.ManagePlugins))
@@ -102,9 +127,13 @@ public class ElasticsearchController : BasePluginController
             model.Fingerprint_OverrideForStore = await _settingService.SettingExistsAsync(elasticsearchSettings, x => x.Fingerprint, storeScope);
         }
 
-        return View($"~/Plugins/{ElasticsearchDefaults.PluginSystemName}/Views/Configure.cshtml", model);
+        return View($"~/Plugins/{ElasticsearchDefaults.PluginSystemName}/Views/Elasticsearch/Configure.cshtml", model);
     }
 
+    /// <summary>
+    /// Handles the HTTP POST request to save Elasticsearch configuration.
+    /// </summary>
+    /// <param name="model">The configuration model.</param>
     [HttpPost]
     public async Task<IActionResult> Configure(ConfigurationModel model)
     {

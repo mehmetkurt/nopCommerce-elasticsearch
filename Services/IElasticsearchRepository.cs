@@ -26,6 +26,25 @@ public interface IElasticsearchRepository<TEntity> where TEntity : BaseEntity
     Task InsertAsync(TEntity entity);
 
     /// <summary>
+    /// Performs a bulk operation asynchronously by adding a collection of specified entity objects as documents into Elasticsearch. If a custom request descriptor is not provided, it defaults to using the specified index name to add documents to the index.
+    /// </summary>
+    /// <param name="entities">The collection of entity objects to be added.</param>
+    /// <param name="requestDescriptor">An optional custom action to configure the bulk request descriptor. If not specified, the default action adds documents to the index specified by the `_indexName` field.</param>
+    /// <returns>A task representing the asynchronous bulk operation, returning a <see cref="BulkResponse"/> object representing the result of the operation.</returns>
+    Task<BulkResponse> BulkAsync(IEnumerable<TEntity> entities, Action<BulkRequestDescriptor> requestDescriptor = null);
+
+    /// <summary>
+    /// Asynchronously performs a bulk operation on the specified collection of entities.
+    /// </summary>
+    /// <param name="entities">The collection of entities to perform the bulk operation on.</param>
+    /// <param name="onNext">An optional action to handle the bulk operation response.</param>
+    /// <param name="onError">An optional action to handle any errors that occur during the bulk operation.</param>
+    /// <param name="onCompleted">An optional action to handle the completion of the bulk operation.</param>
+    /// <param name="requestDescriptor">An optional action to configure the bulk request descriptor.</param>
+    /// <returns>A Task representing the asynchronous operation.</returns>
+    Task BulkAllAsync(IEnumerable<TEntity> entities, Action<BulkAllResponse> onNext = null, Action<Exception> onError = null, Action onCompleted = null, Action<BulkAllRequestDescriptor<TEntity>> requestDescriptor = null);
+
+    /// <summary>
     /// Updates the entity in Elasticsearch.
     /// </summary>
     /// <param name="entity">The entity to update.</param>

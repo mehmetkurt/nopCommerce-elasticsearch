@@ -4,14 +4,14 @@
     Layout = "_AdminLayout";
 
     //page title
-    ViewBag.PageTitle = T($"{ElasticsearchDefaults.LocalizationPrefix}").Text;
+    ViewBag.PageTitle = T($"{ElasticsearchDefaults.LocalizationPrefix}.Configuration").Text;
 
     //active menu item (system name)
-    NopHtml.SetActiveMenuItemSystemName(ElasticsearchDefaults.AdminMenuSystemName);
+    NopHtml.SetActiveMenuItemSystemName(ElasticsearchDefaults.AdminMenuConfigurationSystemName);
 
     var customer = await workContext.GetCurrentCustomerAsync();
 
-    const string hideGeneralBlockAttributeName = $"{ElasticsearchDefaults.PluginSystemName}Page.HideGeneralBlock";
+    const string hideGeneralBlockAttributeName = $"{ElasticsearchDefaults.PluginSystemName}.Configuration.HideGeneralBlock";
     var hideGeneralBlock = await genericAttributeService.GetAttributeAsync<bool>(customer, hideGeneralBlockAttributeName);
 
 }

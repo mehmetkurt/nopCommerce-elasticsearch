@@ -16,6 +16,9 @@ using System.Collections.Immutable;
 
 namespace Nop.Plugin.SearchProvider.Elasticsearch;
 
+/// <summary>
+/// Represents the Elasticsearch plugin, implementing functionality for search provider and admin menu plugin interfaces.
+/// </summary>
 public class ElasticsearchPlugin : BasePlugin, ISearchProvider, IAdminMenuPlugin
 {
     #region Fields
@@ -31,6 +34,16 @@ public class ElasticsearchPlugin : BasePlugin, ISearchProvider, IAdminMenuPlugin
     #endregion
 
     #region Ctor
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ElasticsearchPlugin"/> class.
+    /// </summary>
+    /// <param name="webHelper">The web helper.</param>
+    /// <param name="settingService">The setting service.</param>
+    /// <param name="catalogSettings">The catalog settings.</param>
+    /// <param name="permissionService">The permission service.</param>
+    /// <param name="localizationService">The localization service.</param>
+    /// <param name="scheduleTaskService">The schedule task service.</param>
+    /// <param name="elasticsearchRepository">The Elasticsearch repository.</param>
     public ElasticsearchPlugin
     (
         IWebHelper webHelper,
@@ -52,6 +65,7 @@ public class ElasticsearchPlugin : BasePlugin, ISearchProvider, IAdminMenuPlugin
 
         _scheduleTasks = _scheduleTaskService.GetAllTasksAsync().Result?.ToImmutableList();
     }
+
     #endregion
 
     #region Utilities
@@ -66,8 +80,10 @@ public class ElasticsearchPlugin : BasePlugin, ISearchProvider, IAdminMenuPlugin
         var resources = new Dictionary<string, string>
     {
         { $"{ElasticsearchDefaults.LocalizationPrefix}.Menu", "Elasticsearch" },
-        { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.BlockTitle.General", "General" },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.Menu.Configuration", "Configuration" },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.Menu.EntityTransfer", "Entity Transfers" },
 
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.BlockTitle.General", "General" },
         { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration", "Elasticsearch Configuration" },
         { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.Active", "Active" },
         { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.Active.Hint", "Determines whether the Elasticsearch plugin is active. Set to 'true' to enable the plugin." },
@@ -101,12 +117,41 @@ public class ElasticsearchPlugin : BasePlugin, ISearchProvider, IAdminMenuPlugin
         { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.Username.NotNull", "Username must not be null." },
         { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.UseFingerprint", "Use Fingerprint" },
         { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.UseFingerprint.Hint", "Indicates whether to use a certificate fingerprint for server verification. Set to 'true' to enable." },
+        
+        // Entity Transfer
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.EntityTransfer.List", "Elasticsearch Entity Transfer" },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.EntityTransfer.Fields.EntityName", "Entity Name" },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.EntityTransfer.Fields.EntityName.Hint", "Enter the name of the entity." },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.EntityTransfer.Fields.EntityId", "Entity Id" },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.EntityTransfer.Fields.EntityId.Hint", "Enter the identifier of the entity." },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.EntityTransfer.Fields.Ignored", "Ignored" },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.EntityTransfer.Fields.Ignored.Hint", "Check this box if the transfer is ignored." },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.EntityTransfer.Fields.OperationType", "Operation Type" },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.EntityTransfer.Fields.OperationType.Hint", "Select the operation type." },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.EntityTransfer.Fields.CreatedDateUtc", "Created Date Utc" },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.EntityTransfer.Fields.CreatedDateUtc.Hint", "Enter the date and time when the transfer was created (in UTC)." },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.EntityTransfer.Fields.UpdatedDateUtc", "Updated Date Utc" },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.EntityTransfer.Fields.UpdatedDateUtc.Hint", "Enter the date and time when the transfer was last updated (in UTC)." },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.EntityTransfer.Search.OperationType.All", "All" },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.EntityTransfer.Search.EntityName.All", "All" },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.EntityTransfer.Search.Ignored.All", "All" },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.EntityTransfer.Search.Ignored.IgnoredOnly", "Ignored Only" },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.EntityTransfer.Search.Ignored.NotIgnoredOnly", "Not Ignored Only" },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.EntityTransfer.Search.EntityName", "Entity Name" },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.EntityTransfer.Search.EntityName.Hint", "Enter the name of the entity to filter by." },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.EntityTransfer.Search.Ignored", "Ignored" },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.EntityTransfer.Search.Ignored.Hint", "Filter by whether the entity is ignored." },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.EntityTransfer.Search.OperationType", "Operation Type" },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.EntityTransfer.Search.OperationType.Hint", "Select the operation type to filter by." },
         { $"Enums.{ElasticsearchDefaults.LocalizationPrefix}.Settings.ConnectionType.Api", "API Connection" },
         { $"Enums.{ElasticsearchDefaults.LocalizationPrefix}.Settings.ConnectionType.Api.Hint", "Uses API key for connecting to Elasticsearch." },
         { $"Enums.{ElasticsearchDefaults.LocalizationPrefix}.Settings.ConnectionType.Basic", "Basic Connection" },
         { $"Enums.{ElasticsearchDefaults.LocalizationPrefix}.Settings.ConnectionType.Basic.Hint", "Uses basic authentication (username and password) for connecting to Elasticsearch." },
         { $"Enums.{ElasticsearchDefaults.LocalizationPrefix}.Settings.ConnectionType.Cloud", "Cloud Connection" },
-        { $"Enums.{ElasticsearchDefaults.LocalizationPrefix}.Settings.ConnectionType.Cloud.Hint", "Connects to a managed Elasticsearch cloud service." }
+        { $"Enums.{ElasticsearchDefaults.LocalizationPrefix}.Settings.ConnectionType.Cloud.Hint", "Connects to a managed Elasticsearch cloud service." },
+        { $"Enums.{ElasticsearchDefaults.LocalizationPrefix}.Data.Domain.OperationType.Inserted", "Inserted" },
+        { $"Enums.{ElasticsearchDefaults.LocalizationPrefix}.Data.Domain.OperationType.Updated", "Updated" },
+        { $"Enums.{ElasticsearchDefaults.LocalizationPrefix}.Data.Domain.OperationType.Deleted", "Deleted" },
     };
         await _localizationService.AddOrUpdateLocaleResourceAsync(resources);
     }
@@ -325,10 +370,29 @@ public class ElasticsearchPlugin : BasePlugin, ISearchProvider, IAdminMenuPlugin
             SystemName = ElasticsearchDefaults.AdminMenuSystemName,
             Title = await _localizationService.GetResourceAsync($"{ElasticsearchDefaults.LocalizationPrefix}.Menu"),
             IconClass = "far fa-dot-circle",
-            ControllerName = "Elasticsearch",
-            ActionName = "Configure",
-            RouteValues = new Microsoft.AspNetCore.Routing.RouteValueDictionary { { "area", AreaNames.ADMIN } },
-            Visible = true
+            Visible = true,
+            ChildNodes = [
+                new()
+                {
+                    SystemName = ElasticsearchDefaults.AdminMenuConfigurationSystemName,
+                    Title = await _localizationService.GetResourceAsync($"{ElasticsearchDefaults.LocalizationPrefix}.Menu.Configuration"),
+                    IconClass = "far fa-dot-circle",
+                    Visible = true,
+                    ControllerName = "Elasticsearch",
+                    ActionName = "Configure",
+                    RouteValues = new Microsoft.AspNetCore.Routing.RouteValueDictionary { { "area", AreaNames.ADMIN } },
+                },
+                   new()
+                {
+                    SystemName = ElasticsearchDefaults.AdminMenuEntityTransferSystemName,
+                    Title = await _localizationService.GetResourceAsync($"{ElasticsearchDefaults.LocalizationPrefix}.Menu.EntityTransfer"),
+                    IconClass = "far fa-dot-circle",
+                    Visible = true,
+                    ControllerName = "EntityTransfer",
+                    ActionName = "List",
+                    RouteValues = new Microsoft.AspNetCore.Routing.RouteValueDictionary { { "area", AreaNames.ADMIN } },
+                }
+            ]
         });
     }
     #endregion
