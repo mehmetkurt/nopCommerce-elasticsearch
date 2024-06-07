@@ -17,6 +17,10 @@
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>disable</Nullable>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<DocumentationFile>docs/documentation.xml</DocumentationFile>
+		<PackageReadmeFile>readme.md</PackageReadmeFile>
+		<PackageTags></PackageTags>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -48,6 +52,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Update="readme.md">
+		  <Pack>True</Pack>
+		  <PackagePath>\</PackagePath>
+		</None>
 		<None Update="Views\Configure.cshtml">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
