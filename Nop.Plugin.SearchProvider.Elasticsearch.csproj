@@ -23,41 +23,26 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Remove="plugin.json" />
+		<Content Include="**\*.scss" CopyToOutputDirectory="Never" />
+		<Content Include="**\package*.json" CopyToOutputDirectory="Never" />
+		<Content Include="**\node_modules" CopyToOutputDirectory="Never" />
+		<Content Include="Resources\**\*.json" CopyToOutputDirectory="Always" />
+		<Content Include="**\Views\**\*.cshtml" CopyToOutputDirectory="Always" />
+		<Content Include="**\Assets\**\*.*" Exclude="**\Assets\**\*.scss" CopyToOutputDirectory="Always" />
+		<Content Include="**\Themes\**\*.*" Exclude="**\Themes\**\*.scss" CopyToOutputDirectory="Always" />
+		<Content Include="logo.png" CopyToOutputDirectory="Always" />
+		<Content Include="plugin.json" CopyToOutputDirectory="Always" />
 	</ItemGroup>
-
-	<ItemGroup>
-		<ClearPluginAssemblies Include="$(MSBuildProjectDirectory)\..\..\Build\ClearPluginAssemblies.proj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Content Include="plugin.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Views\_ViewImports.cshtml">
-			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-	</ItemGroup>
-
+	
 	<ItemGroup>
 		<PackageReference Include="Elastic.Clients.Elasticsearch" Version="8.13.15" />
 	</ItemGroup>
-
 	<ItemGroup>
 		<ProjectReference Include="..\..\Presentation\Nop.Web.Framework\Nop.Web.Framework.csproj" />
 		<ProjectReference Include="..\..\Presentation\Nop.Web\Nop.Web.csproj" />
 	</ItemGroup>
-
 	<ItemGroup>
-		<None Update="readme.md">
-		  <Pack>True</Pack>
-		  <PackagePath>\</PackagePath>
-		</None>
-		<None Update="Views\Configure.cshtml">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
+		<ClearPluginAssemblies Include="$(MSBuildProjectDirectory)\..\..\Build\ClearPluginAssemblies.proj" />
 	</ItemGroup>
 
 	<!-- This target execute after "Build" target -->
