@@ -26,7 +26,6 @@
 		<Content Include="**\*.scss" CopyToOutputDirectory="Never" />
 		<Content Include="**\package*.json" CopyToOutputDirectory="Never" />
 		<Content Include="**\node_modules" CopyToOutputDirectory="Never" />
-		<Content Include="Resources\**\*.json" CopyToOutputDirectory="Always" />
 		<Content Include="**\Views\**\*.cshtml" CopyToOutputDirectory="Always" />
 		<Content Include="**\Assets\**\*.*" Exclude="**\Assets\**\*.scss" CopyToOutputDirectory="Always" />
 		<Content Include="**\Themes\**\*.*" Exclude="**\Themes\**\*.scss" CopyToOutputDirectory="Always" />
