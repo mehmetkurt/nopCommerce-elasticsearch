@@ -20,7 +20,6 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>docs/documentation.xml</DocumentationFile>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
-		<PackageTags></PackageTags>
 	</PropertyGroup>
 
 	<ItemGroup>
