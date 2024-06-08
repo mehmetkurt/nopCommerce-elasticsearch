@@ -78,7 +78,7 @@ public class ElasticsearchCategoryService : CategoryService, IElasticsearchCateg
     /// </remarks>
     public virtual async Task<IPagedList<Category>> GetAllCategoriesAsync(int storeId = 0, int pageIndex = 0, int pageSize = int.MaxValue, bool showHidden = false, bool? overridePublished = null, bool getOnlyTotalCount = false)
     {
-        var unsortedCategories = await _categoryRepository.GetAllPagedAsync(async query =>
+        var categories = await _categoryRepository.GetAllPagedAsync(async query =>
         {
             if (!showHidden)
             {
@@ -103,18 +103,9 @@ public class ElasticsearchCategoryService : CategoryService, IElasticsearchCateg
             }
 
             return query.Where(c => !c.Deleted);
-        }, pageIndex, pageSize, getOnlyTotalCount);
+        }, pageIndex: pageIndex, pageSize: pageSize, getOnlyTotalCount: getOnlyTotalCount);
 
-        if (getOnlyTotalCount)
-        {
-            return unsortedCategories;
-        }
-
-        // Sort categories
-        var sortedCategories = SortCategoriesForTree(unsortedCategories.ToLookup(c => c.ParentCategoryId))
-            .ToList();
-
-        return new PagedList<Category>(sortedCategories, pageIndex, pageSize);
+        return categories;
     }
 
 }
