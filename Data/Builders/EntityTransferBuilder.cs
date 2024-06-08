@@ -19,8 +19,6 @@ public class EntityTransferBuilder : NopEntityBuilder<EntityTransfer>
             .WithColumn(nameof(EntityTransfer.EntityName)).AsString().NotNullable()
             .WithColumn(nameof(EntityTransfer.EntityId)).AsInt32().NotNullable()
             .WithColumn(nameof(EntityTransfer.Ignored)).AsBoolean().NotNullable().WithDefaultValue(false)
-            .WithColumn(nameof(EntityTransfer.OperationTypeId)).AsInt32().NotNullable()
-            .WithColumn(nameof(EntityTransfer.CreatedDateUtc)).AsDateTime().NotNullable()
-            .WithColumn(nameof(EntityTransfer.UpdatedDateUtc)).AsDateTime().NotNullable();
+            .WithColumn(nameof(EntityTransfer.OperationTypeId)).AsInt32().NotNullable();
     }
 }
