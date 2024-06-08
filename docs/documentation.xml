@@ -73,18 +73,30 @@
         </member>
         <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Controllers.EntityTransferController.List">
             <summary>
-            Displays the list of entity transfers.
+            Handles the HTTP GET request for listing Entity Transfer objects.
             </summary>
+            <returns>An asynchronous operation representing the view displaying the listed Entity Transfer objects.</returns>
         </member>
         <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Controllers.EntityTransferController.List(Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferSearchModel)">
             <summary>
-            Handles the POST request for retrieving entity transfer data.
+            Handles the HTTP POST request for listing Entity Transfer objects based on the provided search criteria.
             </summary>
+            <param name="searchModel">The search model containing the criteria for listing Entity Transfers.</param>
+            <returns>An asynchronous operation representing the JSON result containing the listed Entity Transfer objects.</returns>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Controllers.EntityTransferController.Update(Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferModel)">
+            <summary>
+            Handles the HTTP POST request for updating an Entity Transfer object.
+            </summary>
+            <param name="model">The model containing the data for updating the Entity Transfer.</param>
+            <returns>An asynchronous operation representing the result of the update operation.</returns>
         </member>
         <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Controllers.EntityTransferController.DeleteSelected(System.Collections.Generic.ICollection{System.Int32})">
             <summary>
-            Handles the POST request for deleting selected entity transfers.
+            Handles the HTTP POST request for deleting selected Entity Transfer objects.
             </summary>
+            <param name="selectedIds">A collection of IDs representing the Entity Transfer objects to be deleted.</param>
+            <returns>An asynchronous operation representing the JSON result indicating the success of the deletion operation.</returns>
         </member>
         <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Data.Builders.EntityTransferBuilder">
             <summary>
@@ -526,7 +538,7 @@
             Represents a scheduled task for transferring categories to Elasticsearch.
             </summary>
         </member>
-        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.ScheduledTasks.CategoryTransferTask.#ctor(Nop.Services.Logging.ILogger,Nop.Plugin.SearchProvider.Elasticsearch.Services.IEntityTransferService,Nop.Plugin.SearchProvider.Elasticsearch.Services.IElasticsearchCategoryService,Nop.Plugin.SearchProvider.Elasticsearch.Repositories.IElasticsearchRepository{Nop.Core.Domain.Catalog.Category})">
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.ScheduledTasks.CategoryTransferTask.#ctor(Nop.Services.Logging.ILogger,Nop.Plugin.SearchProvider.Elasticsearch.Settings.ElasticsearchSettings,Nop.Plugin.SearchProvider.Elasticsearch.Services.IEntityTransferService,Nop.Plugin.SearchProvider.Elasticsearch.Services.IElasticsearchCategoryService,Nop.Plugin.SearchProvider.Elasticsearch.Repositories.IElasticsearchRepository{Nop.Core.Domain.Catalog.Category})">
             <summary>
             Initializes a new instance of the <see cref="T:Nop.Plugin.SearchProvider.Elasticsearch.ScheduledTasks.CategoryTransferTask"/> class.
             </summary>
@@ -535,8 +547,29 @@
             <param name="elasticsearchCategoryService">The Elasticsearch category service.</param>
             <param name="elasticsearchCategoryRepository">The Elasticsearch category repository.</param>
         </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.ScheduledTasks.CategoryTransferTask.OnNextAsync(Elastic.Clients.Elasticsearch.BulkAllResponse)">
+            <summary>
+            Processes each item in the BulkAllResponse asynchronously.
+            </summary>
+            <param name="response">The BulkAllResponse object containing items to process.</param>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.ScheduledTasks.CategoryTransferTask.OnCompletedAsync">
+            <summary>
+            Handles post-processing tasks asynchronously after the execution completes.
+            </summary>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.ScheduledTasks.CategoryTransferTask.OnErrorAsync(System.Exception)">
+            <summary>
+            Handles errors that occur during the execution asynchronously.
+            </summary>
+            <param name="exception">The exception that occurred.</param>
+        </member>
         <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.ScheduledTasks.CategoryTransferTask.ExecuteAsync">
             <inheritdoc />
+            <summary>
+            Executes the Category Transfer task asynchronously.
+            </summary>
+            <returns>A task representing the asynchronous operation.</returns>
         </member>
         <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.ScheduledTasks.ProductAttributeTransferTask">
             <summary>

@@ -89,6 +89,7 @@
                         {
                             Name = "entity-transfers-grid",
                             UrlRead = new DataUrl("List", "EntityTransfer", null),
+                            UrlUpdate = new DataUrl("Update", "EntityTransfer", null),
                             SearchButtonId = "search-entity-transfers",
                             Length = Model.PageSize,
                             LengthMenu = Model.AvailablePageSizes,
@@ -139,6 +140,15 @@
                                     Title = T($"{ElasticsearchDefaults.LocalizationPrefix}.EntityTransfer.Fields.Ignored").Text,
                                     ClassName = NopColumnClassDefaults.CenterAll,
                                     Render = new RenderBoolean(),
+                                    Editable = true,
+                                    EditType = EditType.Checkbox
+                                },
+                                new ColumnProperty(nameof(EntityTransferModel.Id))
+                                {
+                                    Title = T("Admin.Common.Edit").Text,
+                                    Width = "200",
+                                    ClassName =  NopColumnClassDefaults.Button,
+                                    Render = new RenderButtonsInlineEdit()
                                 }
                             }
                         })

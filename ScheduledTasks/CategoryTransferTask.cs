@@ -3,6 +3,7 @@ using Nop.Core.Domain.Catalog;
 using Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain;
 using Nop.Plugin.SearchProvider.Elasticsearch.Repositories;
 using Nop.Plugin.SearchProvider.Elasticsearch.Services;
+using Nop.Plugin.SearchProvider.Elasticsearch.Settings;
 using Nop.Services.Logging;
 using Nop.Services.ScheduleTasks;
 
@@ -14,6 +15,7 @@ namespace Nop.Plugin.SearchProvider.Elasticsearch.ScheduledTasks;
 public class CategoryTransferTask : IScheduleTask
 {
     private readonly ILogger _logger;
+    private readonly ElasticsearchSettings _elasticsearchSettings;
     private readonly IEntityTransferService _entityTransferService;
     private readonly IElasticsearchCategoryService _elasticsearchCategoryService;
     private readonly IElasticsearchRepository<Category> _elasticsearchCategoryRepository;
@@ -33,12 +35,14 @@ public class CategoryTransferTask : IScheduleTask
     public CategoryTransferTask
     (
         ILogger logger,
+        ElasticsearchSettings elasticsearchSettings,
         IEntityTransferService entityTransferService,
         IElasticsearchCategoryService elasticsearchCategoryService,
         IElasticsearchRepository<Category> elasticsearchCategoryRepository
     )
     {
         _logger = logger;
+        _elasticsearchSettings = elasticsearchSettings;
         _entityTransferService = entityTransferService;
         _elasticsearchCategoryService = elasticsearchCategoryService;
         _elasticsearchCategoryRepository = elasticsearchCategoryRepository;
@@ -111,6 +115,9 @@ public class CategoryTransferTask : IScheduleTask
     /// <returns>A task representing the asynchronous operation.</returns>
     public async Task ExecuteAsync()
     {
+        if (!_elasticsearchSettings.Active)
+            return;
+
         // Retrieve summary information about all categories
         var summary = await _elasticsearchCategoryService.GetAllCategoriesAsync(pageIndex: 0, pageSize: _pageSize, getOnlyTotalCount: true);
         var totalCount = summary.TotalCount;
@@ -118,10 +125,7 @@ public class CategoryTransferTask : IScheduleTask
 
         // If there are no categories, return immediately
         if (totalCount <= 0)
-        {
-            await Task.CompletedTask;
             return;
-        }
 
         // Iterate through each page of categories
         for (int i = 0; i < totalPages; i++)
