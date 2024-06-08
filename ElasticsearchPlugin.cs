@@ -12,7 +12,6 @@ using Nop.Services.ScheduleTasks;
 using Nop.Services.Security;
 using Nop.Web.Framework;
 using Nop.Web.Framework.Menu;
-using System.Collections.Immutable;
 
 namespace Nop.Plugin.SearchProvider.Elasticsearch;
 
@@ -22,8 +21,6 @@ namespace Nop.Plugin.SearchProvider.Elasticsearch;
 public class ElasticsearchPlugin : BasePlugin, ISearchProvider, IAdminMenuPlugin
 {
     #region Fields
-    private readonly IImmutableList<ScheduleTask> _scheduleTasks;
-
     private readonly IWebHelper _webHelper;
     private readonly ISettingService _settingService;
     private readonly CatalogSettings _catalogSettings;
@@ -63,7 +60,6 @@ public class ElasticsearchPlugin : BasePlugin, ISearchProvider, IAdminMenuPlugin
         _scheduleTaskService = scheduleTaskService;
         _elasticsearchRepository = elasticsearchRepository;
 
-        _scheduleTasks = _scheduleTaskService.GetAllTasksAsync().Result?.ToImmutableList();
     }
 
     #endregion
@@ -220,7 +216,8 @@ public class ElasticsearchPlugin : BasePlugin, ISearchProvider, IAdminMenuPlugin
     /// <returns>A task that represents the asynchronous operation.</returns>
     private async Task InstallTransferTaskAsync(string name, string type)
     {
-        if (_scheduleTasks.Any(p => p.Type.Equals(type)))
+        var scheduleTask = await _scheduleTaskService.GetTaskByTypeAsync(type);
+        if (scheduleTask != null)
             return;
 
         var task = new ScheduleTask
@@ -242,11 +239,11 @@ public class ElasticsearchPlugin : BasePlugin, ISearchProvider, IAdminMenuPlugin
     /// <returns>A task that represents the asynchronous operation.</returns>
     private async Task UninstallTransferTaskAsync(string type)
     {
-        var task = _scheduleTasks.FirstOrDefault(p => p.Type.Equals(type));
-        if (task == null)
+        var scheduleTask = await _scheduleTaskService.GetTaskByTypeAsync(type);
+        if (scheduleTask == null)
             return;
 
-        await _scheduleTaskService.DeleteTaskAsync(task);
+        await _scheduleTaskService.DeleteTaskAsync(scheduleTask);
     }
 
     #endregion
