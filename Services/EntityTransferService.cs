@@ -60,8 +60,8 @@ public class EntityTransferService : IEntityTransferService
         {
             var query = await _entityTransferRepository.GetAllAsync(q =>
             {
-                q.Where(p => p.EntityId == entityId);
-                q.Where(et => string.Compare(et.EntityName, entityName, StringComparison.OrdinalIgnoreCase) == 0);
+                q = q.Where(p => p.EntityId == entityId);
+                q = q.Where(et => string.Compare(et.EntityName, entityName, StringComparison.OrdinalIgnoreCase) == 0);
 
                 return q;
             });
