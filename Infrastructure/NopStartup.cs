@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Nop.Core.Infrastructure;
@@ -40,5 +41,10 @@ public class NopStartup : INopStartup
         services.AddTransient(typeof(IElasticsearchRepository<>), typeof(ElasticsearchRepository<>));
 
         services.AddTransient<IEntityTransferModelFactory, EntityTransferModelFactory>();
+
+        services.Configure<RazorViewEngineOptions>(options =>
+        {
+            options.ViewLocationExpanders.Add(new ThemeViewLocationExpander());
+        });
     }
 }

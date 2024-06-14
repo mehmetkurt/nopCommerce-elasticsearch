@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.Transfers;
 using Nop.Plugin.SearchProvider.Elasticsearch.Factories;
-using Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers;
 using Nop.Plugin.SearchProvider.Elasticsearch.Services;
 using Nop.Services.Security;
 using Nop.Web.Framework;
@@ -8,7 +8,7 @@ using Nop.Web.Framework.Controllers;
 using Nop.Web.Framework.Mvc;
 using Nop.Web.Framework.Mvc.Filters;
 
-namespace Nop.Plugin.SearchProvider.Elasticsearch.Controllers;
+namespace Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Controllers;
 
 /// <summary>
 /// Represents a controller for configuring Elasticsearch settings in the admin area.
@@ -61,7 +61,7 @@ public class EntityTransferController : BasePluginController
             return AccessDeniedView();
 
         var model = await _entityTransferModelFactory.PrepareEntityTransferSearchModelAsync(new EntityTransferSearchModel());
-        return View($"~/Plugins/{ElasticsearchDefaults.PluginSystemName}/Views/EntityTransfer/List.cshtml", model);
+        return View(model);
     }
 
     /// <summary>
@@ -73,7 +73,7 @@ public class EntityTransferController : BasePluginController
     public async Task<IActionResult> List(EntityTransferSearchModel searchModel)
     {
         if (!await _permissionService.AuthorizeAsync(StandardPermissionProvider.ManagePlugins))
-            return await AccessDeniedDataTablesJson();
+            return await AccessDeniedJsonAsync();
 
         // Prepare model
         var model = await _entityTransferModelFactory.PrepareEntityTransferListModelAsync(searchModel);
@@ -90,7 +90,7 @@ public class EntityTransferController : BasePluginController
     public async Task<IActionResult> Update(EntityTransferModel model)
     {
         if (!await _permissionService.AuthorizeAsync(StandardPermissionProvider.ManagePlugins))
-            return await AccessDeniedDataTablesJson();
+            return await AccessDeniedJsonAsync();
 
         var entityTransfer = await _entityTransferService.GetEntityTransferByIdAsync(model.Id);
         if (entityTransfer == null)
@@ -112,7 +112,7 @@ public class EntityTransferController : BasePluginController
     public async Task<IActionResult> DeleteSelected(ICollection<int> selectedIds)
     {
         if (!await _permissionService.AuthorizeAsync(StandardPermissionProvider.ManagePlugins))
-            return await AccessDeniedDataTablesJson();
+            return await AccessDeniedJsonAsync();
 
         if (selectedIds == null || selectedIds.Count == 0)
             return NoContent();

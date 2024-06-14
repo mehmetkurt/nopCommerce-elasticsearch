@@ -1,0 +1,137 @@
+﻿@model ConfigurationModel
+
+@{
+    Layout = "_AdminLayout";
+
+    //page title
+    ViewBag.PageTitle = T($"{ElasticsearchDefaults.LocalizationPrefix}.Configuration").Text;
+
+    //active menu item (system name)
+    NopHtml.SetActiveMenuItemSystemName(ElasticsearchDefaults.AdminMenuConfigurationSystemName);
+
+    var customer = await workContext.GetCurrentCustomerAsync();
+
+    const string hideGeneralBlockAttributeName = $"{ElasticsearchDefaults.PluginSystemName}.Configuration.HideGeneralBlock";
+    var hideGeneralBlock = await genericAttributeService.GetAttributeAsync<bool>(customer, hideGeneralBlockAttributeName);
+
+    const string hideSearchBlockAttributeName = $"{ElasticsearchDefaults.PluginSystemName}.Configuration.HideSearchBlock";
+    var hideSearchBlock = await genericAttributeService.GetAttributeAsync<bool>(customer, hideSearchBlockAttributeName);
+
+    const string hideSecurityBlockAttributeName = $"{ElasticsearchDefaults.PluginSystemName}.Configuration.HideSecurityBlock";
+    var hideSecurityBlock = await genericAttributeService.GetAttributeAsync<bool>(customer, hideSecurityBlockAttributeName);
+
+}
+
+<script>
+    var eventSource;
+
+    $(function () {
+        $('#rebuildindex').click(function() {
+            connectEventSource();
+        });
+    });
+
+    function connectEventSource() {
+         eventSource = new EventSource('@Url.Action("RebuildIndex", "Elasticsearch")');
+
+         eventSource.onopen = function (event) {
+            showThrobber('@Html.Raw(JavaScriptEncoder.Default.Encode("Started"))');
+         };
+
+         eventSource.onerror = function (event) {
+             if (eventSource.readyState === EventSource.CLOSED) {
+                 return;
+             }
+             else
+             {
+                 showThrobber('@Html.Raw(JavaScriptEncoder.Default.Encode("The connection is lost. Wait, we will connect again!"))');
+                 reconnectEventSource();
+             }
+         };
+
+         eventSource.onmessage = function (event) {
+             var data = JSON.parse(event.data);
+
+             if (data.IndexingState == 100) {
+                 eventSource.close();
+                 showThrobber('@Html.Raw(JavaScriptEncoder.Default.Encode("Completed"))');
+
+                 setTimeout(function () {
+                     $(".throbber").hide();
+                 }, 1000);
+
+                 return;
+             }
+
+             let messageTemplate = `<p>Please Wait<p><br />
+                 <p>${data.Message}</p>
+                 ${prepareProcessState(data)}`;
+
+                 showThrobber(messageTemplate);
+        }
+    }
+
+    function reconnectEventSource() {
+        eventSource.close();
+        setTimeout(connectEventSource, 1000);
+    }
+
+    function prepareProcessState(data) {
+        if (data.Data != null) {
+            let d = data.Data;
+            return `
+                <p>Out of a total of ${d.TotalCount} products<p>
+                <p>${d.Successed} were successful</p>
+                <p>${d.Failed} failed.</p>`;
+        }
+
+        return "";
+    }
+</script>
+
+<div id="resultDiv"></div>
+<form asp-controller="Elasticsearch" asp-action="Configure" method="post">
+    <div class="content-header clearfix">
+        <h1 class="float-left">
+            @T($"{ElasticsearchDefaults.LocalizationPrefix}.Configuration")
+        </h1>
+        <div class="float-right">
+            <button type="submit" name="save" class="btn btn-primary">
+                <i class="far fa-save"></i>
+                @T("Admin.Common.Save")
+            </button>
+            <button type="button" id="rebuildindex" class="btn btn-success">
+                <i class="fas fa-sync"></i>
+                @T($"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.Buttons.RebuildIndex")
+            </button>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="form-horizontal">
+                @await Component.InvokeAsync(typeof(StoreScopeConfigurationViewComponent))
+                <nop-cards id="elasticsearch-configuration-cards">
+                    <nop-card asp-name="elasticsearch-configuration-general" asp-icon="fas fa-info"
+                              asp-title="@T($"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.Tabs.General")"
+                              asp-hide-block-attribute-name="@hideGeneralBlockAttributeName"
+                              asp-hide="@hideGeneralBlock" asp-advanced="false">
+                        @await Html.PartialAsync("_Configure.General", Model)
+                    </nop-card>
+                    <nop-card asp-name="elasticsearch-configuration-security" asp-icon="fas fa-shield-alt"
+                              asp-title="@T($"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.Tabs.Security")"
+                              asp-hide-block-attribute-name="@hideSecurityBlockAttributeName"
+                              asp-hide="@hideSecurityBlock" asp-advanced="false">
+                        @await Html.PartialAsync("_Configure.Security", Model)
+                    </nop-card>
+                    <nop-card asp-name="elasticsearch-configuration-search" asp-icon="fab fa-searchengin"
+                              asp-title="@T($"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.Tabs.Search")"
+                              asp-hide-block-attribute-name="@hideSearchBlockAttributeName"
+                              asp-hide="@hideSearchBlock" asp-advanced="false">
+                        @await Html.PartialAsync("_Configure.Search", Model)
+                    </nop-card>
+                </nop-cards>
+            </div>
+        </div>
+    </section>
+</form>

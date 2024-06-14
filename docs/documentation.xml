@@ -4,6 +4,332 @@
         <name>Nop.Plugin.SearchProvider.Elasticsearch</name>
     </assembly>
     <members>
+        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Controllers.ElasticsearchController">
+            <summary>
+            Represents a controller for configuring Elasticsearch settings in the admin area.
+            </summary>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Controllers.ElasticsearchController.#ctor(Nop.Core.IWorkContext,Nop.Core.IStoreContext,Nop.Services.Configuration.ISettingService,Nop.Services.Security.IPermissionService,Nop.Services.Localization.ILocalizationService,Nop.Services.Messages.INotificationService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Controllers.ElasticsearchController" /> class.
+            </summary>
+            <param name="workContext">The work context.</param>
+            <param name="storeContext">The store context.</param>
+            <param name="settingService">The setting service.</param>
+            <param name="permissionService">The permission service.</param>
+            <param name="localizationService">The localization service.</param>
+            <param name="notificationService">The notification service.</param>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Controllers.ElasticsearchController.PrepareAvailableConnectionTypesAsync(System.Collections.Generic.List{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem})">
+            <summary>
+            Prepares the available connection types for selection.
+            </summary>
+            <param name="items">The list to populate with available connection types.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Controllers.ElasticsearchController.PrepareAvailableSearchTypesAsync(System.Collections.Generic.List{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem})">
+            <summary>
+            Prepares the available search types for selection.
+            </summary>
+            <param name="items">The list to populate with available search types.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Controllers.ElasticsearchController.Configure">
+            <summary>
+            Displays the Elasticsearch configuration page.
+            </summary>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Controllers.ElasticsearchController.Configure(Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.ConfigurationModel)">
+            <summary>
+            Handles the HTTP POST request to save Elasticsearch configuration.
+            </summary>
+            <param name="model">The configuration model.</param>
+        </member>
+        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Controllers.EntityTransferController">
+            <summary>
+            Represents a controller for configuring Elasticsearch settings in the admin area.
+            </summary>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Controllers.EntityTransferController.#ctor(Nop.Services.Security.IPermissionService,Nop.Plugin.SearchProvider.Elasticsearch.Services.IEntityTransferService,Nop.Plugin.SearchProvider.Elasticsearch.Factories.IEntityTransferModelFactory)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Controllers.EntityTransferController"/> class.
+            </summary>
+            <param name="permissionService">The permission service.</param>
+            <param name="entityTransferService">The entity transfer service.</param>
+            <param name="entityTransferModelFactory">The entity transfer model factory.</param>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Controllers.EntityTransferController.List">
+            <summary>
+            Handles the HTTP GET request for listing Entity Transfer objects.
+            </summary>
+            <returns>An asynchronous operation representing the view displaying the listed Entity Transfer objects.</returns>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Controllers.EntityTransferController.List(Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.Transfers.EntityTransferSearchModel)">
+            <summary>
+            Handles the HTTP POST request for listing Entity Transfer objects based on the provided search criteria.
+            </summary>
+            <param name="searchModel">The search model containing the criteria for listing Entity Transfers.</param>
+            <returns>An asynchronous operation representing the JSON result containing the listed Entity Transfer objects.</returns>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Controllers.EntityTransferController.Update(Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.Transfers.EntityTransferModel)">
+            <summary>
+            Handles the HTTP POST request for updating an Entity Transfer object.
+            </summary>
+            <param name="model">The model containing the data for updating the Entity Transfer.</param>
+            <returns>An asynchronous operation representing the result of the update operation.</returns>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Controllers.EntityTransferController.DeleteSelected(System.Collections.Generic.ICollection{System.Int32})">
+            <summary>
+            Handles the HTTP POST request for deleting selected Entity Transfer objects.
+            </summary>
+            <param name="selectedIds">A collection of IDs representing the Entity Transfer objects to be deleted.</param>
+            <returns>An asynchronous operation representing the JSON result indicating the success of the deletion operation.</returns>
+        </member>
+        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.ConfigurationModel">
+            <summary>
+            Represents the configuration model for Elasticsearch settings in nopCommerce.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.ConfigurationModel.ActiveStoreScopeConfiguration">
+            <summary>
+            Gets or sets an active store scope configuration (store identifier).
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.ConfigurationModel.Active">
+            <summary>
+            Gets or sets a value indicating whether the Elasticsearch plugin is active.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.ConfigurationModel.Active_OverrideForStore">
+            <summary>
+            Gets or sets a value indicating whether the Active setting is overridden for the current store.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.ConfigurationModel.ConnectionType">
+            <summary>
+            Gets or sets the type of connection to Elasticsearch.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.ConfigurationModel.ConnectionType_OverrideForStore">
+            <summary>
+            Gets or sets a value indicating whether the ConnectionType setting is overridden for the current store.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.ConfigurationModel.Hostnames">
+            <summary>
+            Gets or sets the hostnames of the Elasticsearch nodes.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.ConfigurationModel.Hostnames_OverrideForStore">
+            <summary>
+            Gets or sets a value indicating whether the Hostnames setting is overridden for the current store.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.ConfigurationModel.Username">
+            <summary>
+            Gets or sets the username used for authentication with Elasticsearch.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.ConfigurationModel.Username_OverrideForStore">
+            <summary>
+            Gets or sets a value indicating whether the Username setting is overridden for the current store.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.ConfigurationModel.Password">
+            <summary>
+            Gets or sets the password used for authentication with Elasticsearch.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.ConfigurationModel.Password_OverrideForStore">
+            <summary>
+            Gets or sets a value indicating whether the Password setting is overridden for the current store.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.ConfigurationModel.CloudId">
+            <summary>
+            Gets or sets the Cloud ID for connecting to Elasticsearch on the cloud.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.ConfigurationModel.CloudId_OverrideForStore">
+            <summary>
+            Gets or sets a value indicating whether the CloudId setting is overridden for the current store.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.ConfigurationModel.ApiKey">
+            <summary>
+            Gets or sets the API key used for authentication with Elasticsearch.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.ConfigurationModel.ApiKey_OverrideForStore">
+            <summary>
+            Gets or sets a value indicating whether the ApiKey setting is overridden for the current store.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.ConfigurationModel.UseFingerprint">
+            <summary>
+            Gets or sets a value indicating whether to use fingerprint authentication with Elasticsearch.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.ConfigurationModel.UseFingerprint_OverrideForStore">
+            <summary>
+            Gets or sets a value indicating whether the UseFingerprint setting is overridden for the current store.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.ConfigurationModel.Fingerprint">
+            <summary>
+            Gets or sets the fingerprint used for authentication with Elasticsearch.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.ConfigurationModel.Fingerprint_OverrideForStore">
+            <summary>
+            Gets or sets a value indicating whether the Fingerprint setting is overridden for the current store.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.ConfigurationModel.SearchType">
+            <summary>
+            Gets or sets the type of search to be performed.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.ConfigurationModel.SearchType_OverrideForStore">
+            <summary>
+            Gets or sets a value indicating whether the SearchType setting is overridden for the current store.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.ConfigurationModel.ResultLimit">
+            <summary>
+            Gets or sets the result limit for search queries to Elasticsearch.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.ConfigurationModel.ResultLimit_OverrideForStore">
+            <summary>
+            Gets or sets a value indicating whether the ResultLimit setting is overridden for the current store.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.ConfigurationModel.ImmediatelyUpdateIndexes">
+            <summary>
+            Gets or sets a value indicating whether to immediately update search index documents.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.ConfigurationModel.ImmediatelyUpdateIndexes_OverrideForStore">
+            <summary>
+            Gets or sets a value indicating whether the ImmediatelyUpdateIndexes setting is overridden for the current store.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.ConfigurationModel.AvailableConnectionTypes">
+            <summary>
+            Gets or sets the available connection types for Elasticsearch.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.ConfigurationModel.AvailableSeachTypes">
+            <summary>
+            Gets or sets the available search types for Elasticsearch.
+            </summary>
+        </member>
+        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.MapperConfiguration">
+            <summary>
+            Configures AutoMapper profiles for mapping between domain and model classes.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.MapperConfiguration.Order">
+            <summary>
+            Gets the order of this mapper profile implementation.
+            </summary>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.MapperConfiguration.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.MapperConfiguration"/> class.
+            </summary>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.MapperConfiguration.CreateEntityTransferMappings">
+            <summary>
+            Configures mappings between <see cref="T:Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain.EntityTransfer"/> and <see cref="T:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.Transfers.EntityTransferModel"/>.
+            </summary>
+        </member>
+        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.Transfers.EntityTransferListModel">
+            <summary>
+            Represents a list model for entity transfers.
+            </summary>
+        </member>
+        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.Transfers.EntityTransferModel">
+            <summary>
+            Represents the model for transferring entities.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.Transfers.EntityTransferModel.EntityName">
+            <summary>
+            Gets or sets the name of the entity.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.Transfers.EntityTransferModel.EntityId">
+            <summary>
+            Gets or sets the identifier of the entity.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.Transfers.EntityTransferModel.Ignored">
+            <summary>
+            Gets or sets a value indicating whether the transfer is ignored.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.Transfers.EntityTransferModel.OperationTypeId">
+            <summary>
+            Gets or sets the identifier of the operation type.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.Transfers.EntityTransferModel.CreatedDateUtc">
+            <summary>
+            Gets or sets the date and time when the transfer was created (in UTC).
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.Transfers.EntityTransferModel.UpdatedDateUtc">
+            <summary>
+            Gets or sets the date and time when the transfer was last updated (in UTC).
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.Transfers.EntityTransferModel.OperationTypeName">
+            <summary>
+            Gets or sets the name of the operation type.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.Transfers.EntityTransferModel.OperationType">
+            <summary>
+            Gets or sets the operation type.
+            </summary>
+        </member>
+        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.Transfers.EntityTransferSearchModel">
+            <summary>
+            Represents a search model for entity transfers.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.Transfers.EntityTransferSearchModel.SearchEntityNames">
+            <summary>
+            Gets or sets the list of entity names to search for.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.Transfers.EntityTransferSearchModel.SearchIgnoredId">
+            <summary>
+            Gets or sets the ID of the search criteria for ignored transfers.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.Transfers.EntityTransferSearchModel.SearchOperationTypeIds">
+            <summary>
+            Gets or sets the list of operation type IDs to search for.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.Transfers.EntityTransferSearchModel.AvailableEntityNames">
+            <summary>
+            Gets or sets the available entity names for selection.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.Transfers.EntityTransferSearchModel.AvailableIgnoreOptions">
+            <summary>
+            Gets or sets the available options for searching ignored transfers.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.Transfers.EntityTransferSearchModel.AvailableOperationTypes">
+            <summary>
+            Gets or sets the available operation types for selection.
+            </summary>
+        </member>
         <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Consumers.BaseEntityConsumer`1.HandleEventAsync(Nop.Core.Events.EntityInsertedEvent{`0})">
             <summary>
             Handle entity inserted event
@@ -24,79 +350,6 @@
             </summary>
             <param name="eventMessage">Event message</param>
             <returns>A task that represents the asynchronous operation</returns>
-        </member>
-        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Controllers.ElasticsearchController">
-            <summary>
-            Represents a controller for configuring Elasticsearch settings in the admin area.
-            </summary>
-        </member>
-        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Controllers.ElasticsearchController.#ctor(Nop.Core.IWorkContext,Nop.Core.IStoreContext,Nop.Services.Configuration.ISettingService,Nop.Services.Security.IPermissionService,Nop.Services.Localization.ILocalizationService,Nop.Services.Messages.INotificationService)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Nop.Plugin.SearchProvider.Elasticsearch.Controllers.ElasticsearchController" /> class.
-            </summary>
-            <param name="workContext">The work context.</param>
-            <param name="storeContext">The store context.</param>
-            <param name="settingService">The setting service.</param>
-            <param name="permissionService">The permission service.</param>
-            <param name="localizationService">The localization service.</param>
-            <param name="notificationService">The notification service.</param>
-        </member>
-        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Controllers.ElasticsearchController.PrepareAvailableConnectionTypesAsync(System.Collections.Generic.List{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem})">
-            <summary>
-            Prepares available connection types.
-            </summary>
-            <param name="items">The list of select list items to populate.</param>
-        </member>
-        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Controllers.ElasticsearchController.Configure">
-            <summary>
-            Displays the Elasticsearch configuration page.
-            </summary>
-        </member>
-        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Controllers.ElasticsearchController.Configure(Nop.Plugin.SearchProvider.Elasticsearch.Models.ConfigurationModel)">
-            <summary>
-            Handles the HTTP POST request to save Elasticsearch configuration.
-            </summary>
-            <param name="model">The configuration model.</param>
-        </member>
-        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Controllers.EntityTransferController">
-            <summary>
-            Represents a controller for configuring Elasticsearch settings in the admin area.
-            </summary>
-        </member>
-        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Controllers.EntityTransferController.#ctor(Nop.Services.Security.IPermissionService,Nop.Plugin.SearchProvider.Elasticsearch.Services.IEntityTransferService,Nop.Plugin.SearchProvider.Elasticsearch.Factories.IEntityTransferModelFactory)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Nop.Plugin.SearchProvider.Elasticsearch.Controllers.EntityTransferController"/> class.
-            </summary>
-            <param name="permissionService">The permission service.</param>
-            <param name="entityTransferService">The entity transfer service.</param>
-            <param name="entityTransferModelFactory">The entity transfer model factory.</param>
-        </member>
-        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Controllers.EntityTransferController.List">
-            <summary>
-            Handles the HTTP GET request for listing Entity Transfer objects.
-            </summary>
-            <returns>An asynchronous operation representing the view displaying the listed Entity Transfer objects.</returns>
-        </member>
-        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Controllers.EntityTransferController.List(Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferSearchModel)">
-            <summary>
-            Handles the HTTP POST request for listing Entity Transfer objects based on the provided search criteria.
-            </summary>
-            <param name="searchModel">The search model containing the criteria for listing Entity Transfers.</param>
-            <returns>An asynchronous operation representing the JSON result containing the listed Entity Transfer objects.</returns>
-        </member>
-        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Controllers.EntityTransferController.Update(Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferModel)">
-            <summary>
-            Handles the HTTP POST request for updating an Entity Transfer object.
-            </summary>
-            <param name="model">The model containing the data for updating the Entity Transfer.</param>
-            <returns>An asynchronous operation representing the result of the update operation.</returns>
-        </member>
-        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Controllers.EntityTransferController.DeleteSelected(System.Collections.Generic.ICollection{System.Int32})">
-            <summary>
-            Handles the HTTP POST request for deleting selected Entity Transfer objects.
-            </summary>
-            <param name="selectedIds">A collection of IDs representing the Entity Transfer objects to be deleted.</param>
-            <returns>An asynchronous operation representing the JSON result indicating the success of the deletion operation.</returns>
         </member>
         <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Data.Builders.EntityTransferBuilder">
             <summary>
@@ -354,21 +607,21 @@
             <param name="localizationService">The localization service.</param>
             <param name="entityTransferService">The entity transfer service.</param>
         </member>
-        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Factories.EntityTransferModelFactory.PrepareEntityTransferSearchModelAsync(Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferSearchModel)">
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Factories.EntityTransferModelFactory.PrepareEntityTransferSearchModelAsync(Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.Transfers.EntityTransferSearchModel)">
             <summary>
             Prepares the entity transfer search model asynchronously.
             </summary>
             <param name="searchModel">The entity transfer search model.</param>
             <returns>The prepared entity transfer search model.</returns>
         </member>
-        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Factories.EntityTransferModelFactory.PrepareEntityTransferListModelAsync(Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferSearchModel)">
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Factories.EntityTransferModelFactory.PrepareEntityTransferListModelAsync(Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.Transfers.EntityTransferSearchModel)">
             <summary>
             Prepares the entity transfer list model asynchronously.
             </summary>
             <param name="searchModel">The entity transfer search model.</param>
             <returns>The prepared entity transfer list model.</returns>
         </member>
-        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Factories.EntityTransferModelFactory.PrepareEntityTransferModelAsync(Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferModel,Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain.EntityTransfer,System.Boolean)">
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Factories.EntityTransferModelFactory.PrepareEntityTransferModelAsync(Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.Transfers.EntityTransferModel,Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain.EntityTransfer,System.Boolean)">
             <summary>
             Prepares the entity transfer model asynchronously.
             </summary>
@@ -382,21 +635,21 @@
             Represents a factory for preparing models related to entity transfers.
             </summary>
         </member>
-        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Factories.IEntityTransferModelFactory.PrepareEntityTransferSearchModelAsync(Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferSearchModel)">
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Factories.IEntityTransferModelFactory.PrepareEntityTransferSearchModelAsync(Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.Transfers.EntityTransferSearchModel)">
             <summary>
             Prepares the entity transfer search model asynchronously.
             </summary>
             <param name="searchModel">The entity transfer search model.</param>
             <returns>The prepared entity transfer search model.</returns>
         </member>
-        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Factories.IEntityTransferModelFactory.PrepareEntityTransferListModelAsync(Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferSearchModel)">
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Factories.IEntityTransferModelFactory.PrepareEntityTransferListModelAsync(Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.Transfers.EntityTransferSearchModel)">
             <summary>
             Prepares the entity transfer list model asynchronously.
             </summary>
             <param name="searchModel">The entity transfer search model.</param>
             <returns>The prepared entity transfer list model.</returns>
         </member>
-        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Factories.IEntityTransferModelFactory.PrepareEntityTransferModelAsync(Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferModel,Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain.EntityTransfer,System.Boolean)">
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Factories.IEntityTransferModelFactory.PrepareEntityTransferModelAsync(Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.Transfers.EntityTransferModel,Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain.EntityTransfer,System.Boolean)">
             <summary>
             Prepares the entity transfer model asynchronously.
             </summary>
@@ -428,110 +681,29 @@
             <param name="services">The service collection.</param>
             <param name="configuration">The configuration.</param>
         </member>
-        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Models.MapperConfiguration">
+        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Infrastructure.ThemeViewLocationExpander">
             <summary>
-            Configures AutoMapper profiles for mapping between domain and model classes.
+            Expands view locations for themes in the Elasticsearch search provider plugin.
             </summary>
         </member>
-        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Models.MapperConfiguration.Order">
+        <member name="F:Nop.Plugin.SearchProvider.Elasticsearch.Infrastructure.ThemeViewLocationExpander.THEME_KEY">
             <summary>
-            Gets the order of this mapper profile implementation.
+            Key used to store the theme name in the context values for view location expanding.
             </summary>
         </member>
-        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Models.MapperConfiguration.#ctor">
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Infrastructure.ThemeViewLocationExpander.PopulateValues(Microsoft.AspNetCore.Mvc.Razor.ViewLocationExpanderContext)">
             <summary>
-            Initializes a new instance of the <see cref="T:Nop.Plugin.SearchProvider.Elasticsearch.Models.MapperConfiguration"/> class.
+            Populates the theme name value based on the current context.
             </summary>
+            <param name="context">The context for the view location expander.</param>
         </member>
-        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Models.MapperConfiguration.CreateEntityTransferMappings">
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Infrastructure.ThemeViewLocationExpander.ExpandViewLocations(Microsoft.AspNetCore.Mvc.Razor.ViewLocationExpanderContext,System.Collections.Generic.IEnumerable{System.String})">
             <summary>
-            Configures mappings between <see cref="T:Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain.EntityTransfer"/> and <see cref="T:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferModel"/>.
+            Expands the view locations based on the current context.
             </summary>
-        </member>
-        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferListModel">
-            <summary>
-            Represents a list model for entity transfers.
-            </summary>
-        </member>
-        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferModel">
-            <summary>
-            Represents the model for transferring entities.
-            </summary>
-        </member>
-        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferModel.EntityName">
-            <summary>
-            Gets or sets the name of the entity.
-            </summary>
-        </member>
-        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferModel.EntityId">
-            <summary>
-            Gets or sets the identifier of the entity.
-            </summary>
-        </member>
-        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferModel.Ignored">
-            <summary>
-            Gets or sets a value indicating whether the transfer is ignored.
-            </summary>
-        </member>
-        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferModel.OperationTypeId">
-            <summary>
-            Gets or sets the identifier of the operation type.
-            </summary>
-        </member>
-        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferModel.CreatedDateUtc">
-            <summary>
-            Gets or sets the date and time when the transfer was created (in UTC).
-            </summary>
-        </member>
-        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferModel.UpdatedDateUtc">
-            <summary>
-            Gets or sets the date and time when the transfer was last updated (in UTC).
-            </summary>
-        </member>
-        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferModel.OperationTypeName">
-            <summary>
-            Gets or sets the name of the operation type.
-            </summary>
-        </member>
-        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferModel.OperationType">
-            <summary>
-            Gets or sets the operation type.
-            </summary>
-        </member>
-        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferSearchModel">
-            <summary>
-            Represents a search model for entity transfers.
-            </summary>
-        </member>
-        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferSearchModel.SearchEntityNames">
-            <summary>
-            Gets or sets the list of entity names to search for.
-            </summary>
-        </member>
-        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferSearchModel.SearchIgnoredId">
-            <summary>
-            Gets or sets the ID of the search criteria for ignored transfers.
-            </summary>
-        </member>
-        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferSearchModel.SearchOperationTypeIds">
-            <summary>
-            Gets or sets the list of operation type IDs to search for.
-            </summary>
-        </member>
-        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferSearchModel.AvailableEntityNames">
-            <summary>
-            Gets or sets the available entity names for selection.
-            </summary>
-        </member>
-        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferSearchModel.AvailableIgnoreOptions">
-            <summary>
-            Gets or sets the available options for searching ignored transfers.
-            </summary>
-        </member>
-        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers.EntityTransferSearchModel.AvailableOperationTypes">
-            <summary>
-            Gets or sets the available operation types for selection.
-            </summary>
+            <param name="context">The context for the view location expander.</param>
+            <param name="viewLocations">The original view locations to expand.</param>
+            <returns>The expanded view locations.</returns>
         </member>
         <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.ScheduledTasks.CategoryTransferTask">
             <summary>
@@ -680,6 +852,7 @@
             </summary>
             <param name="logger">The logger service.</param>
             <param name="notificationService">The notification service.</param>
+            <param name="elasticsearchService"></param>
             <param name="elasticsearchSettings">The Elasticsearch settings.</param>
         </member>
         <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Services.ElasticsearchConnectionManager.InitializeClientAsync">
@@ -701,6 +874,18 @@
             it initializes the client before returning it.
             </summary>
             <returns>A task that represents the asynchronous operation. The task result contains the <see cref="T:Elastic.Clients.Elasticsearch.ElasticsearchClient"/> instance.</returns>
+        </member>
+        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Services.ElasticsearchService">
+            <summary>
+            Service for managing Elasticsearch configuration and operations.
+            </summary>
+        </member>
+        <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Services.ElasticsearchService.#ctor(Nop.Services.Localization.ILocalizationService,Nop.Plugin.SearchProvider.Elasticsearch.Settings.ElasticsearchSettings)">
+            <summary>
+            Initializes a new instance of the ElasticsearchService class.
+            </summary>
+            <param name="localizationService">Localization service for retrieving localized resources.</param>
+            <param name="elasticsearchSettings">Settings object containing Elasticsearch configuration.</param>
         </member>
         <member name="M:Nop.Plugin.SearchProvider.Elasticsearch.Services.ElasticsearchService.IsConfiguredAsync">
             <summary>
@@ -1192,6 +1377,29 @@
             <param name="configureRequest">An action to configure the search request descriptor.</param>
             <returns>A list of found documents.</returns>
         </member>
+        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Settings.ConnectionType">
+            <summary>
+            Enumeration for different types of connections to an Elasticsearch cluster.
+            </summary>
+        </member>
+        <member name="F:Nop.Plugin.SearchProvider.Elasticsearch.Settings.ConnectionType.Api">
+            <summary>
+            API connection type for using an API key to authenticate and connect.
+            This is recommended for security purposes, where each application has its own API key.
+            </summary>
+        </member>
+        <member name="F:Nop.Plugin.SearchProvider.Elasticsearch.Settings.ConnectionType.Basic">
+            <summary>
+            Basic connection type for connecting to a single Elasticsearch node.
+            Suitable for local development or when connecting through a load balancer.
+            </summary>
+        </member>
+        <member name="F:Nop.Plugin.SearchProvider.Elasticsearch.Settings.ConnectionType.Cloud">
+            <summary>
+            Cloud connection type for connecting to an Elasticsearch cluster hosted on Elastic Cloud.
+            It is recommended to use the Cloud ID for optimal configuration and security features.
+            </summary>
+        </member>
         <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Settings.ElasticsearchSettings">
             <summary>
             Represents the Elasticsearch settings.
@@ -1205,41 +1413,93 @@
         <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Settings.ElasticsearchSettings.ConnectionType">
             <summary>
             Gets or sets the type of connection to Elasticsearch.
+            This property uses the <see cref="P:Nop.Plugin.SearchProvider.Elasticsearch.Settings.ElasticsearchSettings.ConnectionType"/> enumeration to specify the connection strategy.
             </summary>
         </member>
         <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Settings.ElasticsearchSettings.Hostnames">
             <summary>
             Gets or sets the hostnames of the Elasticsearch nodes.
+            This can be a single hostname or multiple hostnames for connecting to multiple nodes in a cluster.
+            For example: "node1.example.com;node2.example.com;node3.example.com"
             </summary>
         </member>
         <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Settings.ElasticsearchSettings.Username">
             <summary>
             Gets or sets the username used for authentication with Elasticsearch.
+            This is required for basic authentication when connecting to the cluster.
             </summary>
         </member>
         <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Settings.ElasticsearchSettings.Password">
             <summary>
             Gets or sets the password used for authentication with Elasticsearch.
+            This is required along with the username for basic authentication.
             </summary>
         </member>
         <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Settings.ElasticsearchSettings.CloudId">
             <summary>
             Gets or sets the Cloud ID for connecting to Elasticsearch on the cloud.
+            The Cloud ID is used for optimal configuration when connecting to an Elastic Cloud deployment.
             </summary>
         </member>
         <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Settings.ElasticsearchSettings.ApiKey">
             <summary>
             Gets or sets the API key used for authentication with Elasticsearch.
+            Using an API key is a recommended security best practice for authenticating applications.
             </summary>
         </member>
         <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Settings.ElasticsearchSettings.UseFingerprint">
             <summary>
             Gets or sets a value indicating whether to use fingerprint authentication with Elasticsearch.
+            This determines if the client should use the CA certificate fingerprint for secure connections.
             </summary>
         </member>
         <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Settings.ElasticsearchSettings.Fingerprint">
             <summary>
             Gets or sets the fingerprint used for authentication with Elasticsearch.
+            The fingerprint is the hex-encoded SHA-256 of the CA certificate used for secure connections.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Settings.ElasticsearchSettings.SearchType">
+            <summary>
+            Gets or sets the type of search to be performed.
+            This property uses the <see cref="P:Nop.Plugin.SearchProvider.Elasticsearch.Settings.ElasticsearchSettings.SearchType"/> enumeration to specify the search strategy.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Settings.ElasticsearchSettings.ResultLimit">
+            <summary>
+            Gets or sets the result limit for search queries to Elasticsearch.
+            The result limit specifies the maximum number of matching results that will be retrieved from the server.
+            </summary>
+        </member>
+        <member name="P:Nop.Plugin.SearchProvider.Elasticsearch.Settings.ElasticsearchSettings.ImmediatelyUpdateIndexes">
+            <summary>
+            Gets or sets a value indicating whether to immediately update search index documents.
+            If set to true, changes such as updates to product names or descriptions will be applied immediately.
+            Otherwise, changes will be scheduled for reindexing.
+            </summary>
+        </member>
+        <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Settings.SearchType">
+            <summary>
+            Enumeration for various search methodologies.
+            </summary>
+        </member>
+        <member name="F:Nop.Plugin.SearchProvider.Elasticsearch.Settings.SearchType.Fuzzy">
+            <summary>
+            Fuzzy search accommodates minor misspellings in queries.
+            For instance, searching for 'appl' might still yield results for 'apple'.
+            </summary>
+        </member>
+        <member name="F:Nop.Plugin.SearchProvider.Elasticsearch.Settings.SearchType.Wildcard">
+            <summary>
+            Wildcard search allows pattern-based queries.
+            The * wildcard character is used to match any sequence of characters.
+            For example, searching for 'doc*' might return 'document' and 'doctor'.
+            </summary>
+        </member>
+        <member name="F:Nop.Plugin.SearchProvider.Elasticsearch.Settings.SearchType.Exact">
+            <summary>
+            Exact search requires the query to precisely match the indexed terms.
+            Only exact matches will be returned.
             </summary>
         </member>
         <member name="T:Nop.Plugin.SearchProvider.Elasticsearch.Validators.BaseConfigurationValidator">

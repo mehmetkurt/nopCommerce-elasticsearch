@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Nop.Core.Infrastructure.Mapper;
+using Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.Transfers;
 using Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain;
-using Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers;
 
-namespace Nop.Plugin.SearchProvider.Elasticsearch.Models;
+namespace Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models;
 
 /// <summary>
 /// Configures AutoMapper profiles for mapping between domain and model classes.

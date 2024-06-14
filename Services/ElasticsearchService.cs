@@ -3,16 +3,21 @@ using Nop.Plugin.SearchProvider.Elasticsearch.Validators;
 using Nop.Services.Localization;
 
 namespace Nop.Plugin.SearchProvider.Elasticsearch.Services;
+
+/// <summary>
+/// Service for managing Elasticsearch configuration and operations.
+/// </summary>
 public class ElasticsearchService : IElasticsearchService
 {
     private readonly ILocalizationService _localizationService;
     private readonly ElasticsearchSettings _elasticsearchSettings;
 
-    public ElasticsearchService
-    (
-        ILocalizationService localizationService,
-        ElasticsearchSettings elasticsearchSettings
-    )
+    /// <summary>
+    /// Initializes a new instance of the ElasticsearchService class.
+    /// </summary>
+    /// <param name="localizationService">Localization service for retrieving localized resources.</param>
+    /// <param name="elasticsearchSettings">Settings object containing Elasticsearch configuration.</param>
+    public ElasticsearchService(ILocalizationService localizationService, ElasticsearchSettings elasticsearchSettings)
     {
         _localizationService = localizationService;
         _elasticsearchSettings = elasticsearchSettings;

@@ -15,7 +15,7 @@ public class ElasticsearchConnectionManager : IElasticsearchConnectionManager
     #region Fields
     private Task _initializationTask;
     private ElasticsearchClient _client;
-    private ElasticsearchClientSettings _settings;
+    private ElasticsearchClientSettings _elasticsearchClientSettings;
 
     private readonly object _lock = new();
     private readonly ILogger _logger;
@@ -30,6 +30,7 @@ public class ElasticsearchConnectionManager : IElasticsearchConnectionManager
     /// </summary>
     /// <param name="logger">The logger service.</param>
     /// <param name="notificationService">The notification service.</param>
+    /// <param name="elasticsearchService"></param>
     /// <param name="elasticsearchSettings">The Elasticsearch settings.</param>
     public ElasticsearchConnectionManager(
         ILogger logger,
@@ -54,13 +55,43 @@ public class ElasticsearchConnectionManager : IElasticsearchConnectionManager
         if (!await _elasticsearchService.IsConfiguredAsync())
             return;
 
-        _settings = new ElasticsearchClientSettings(new Uri(_elasticsearchSettings.Hostnames))
+        var hostNames = _elasticsearchSettings.Hostnames.Split(";", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
+        NodePool nodePool;
+
+        if (hostNames.Length > 1)
+        {
+            var uriList = hostNames.Select(p =>
+            {
+                if (Uri.TryCreate(p, UriKind.Absolute, out var uri))
+                    return uri;
+                else
+                    throw new ArgumentException($"Invalid URI: {p}");
+            }).ToList();
+
+            nodePool = new StaticNodePool(uriList);
+        }
+        else
+        {
+            var uri = hostNames.FirstOrDefault();
+            if (Uri.TryCreate(uri, UriKind.Absolute, out var singleUri))
+                nodePool = new SingleNodePool(singleUri);
+            else
+                throw new ArgumentException($"Invalid URI: {uri}");
+        }
+
+        _elasticsearchClientSettings = new ElasticsearchClientSettings(nodePool)
             .Authentication(GetAuthentication());
 
         if (_elasticsearchSettings.UseFingerprint)
-            _settings.CertificateFingerprint(_elasticsearchSettings.Fingerprint);
+        {
+            if (!string.IsNullOrEmpty(_elasticsearchSettings.Fingerprint))
+                _elasticsearchClientSettings.CertificateFingerprint(_elasticsearchSettings.Fingerprint);
+            else
+                throw new ArgumentException("Fingerprint is empty.");
+        }
 
-        _client = new ElasticsearchClient(_settings);
+        _client = new ElasticsearchClient(_elasticsearchClientSettings);
     }
 
 

@@ -1,4 +1,4 @@
-﻿using Nop.Plugin.SearchProvider.Elasticsearch.Models;
+﻿using Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models;
 using Nop.Services.Localization;
 using Nop.Web.Framework.Validators;
 

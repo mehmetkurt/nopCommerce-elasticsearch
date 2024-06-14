@@ -2,7 +2,7 @@
 using Nop.Web.Framework.Models;
 using Nop.Web.Framework.Mvc.ModelBinding;
 
-namespace Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers;
+namespace Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.Transfers;
 
 /// <summary>
 /// Represents the model for transferring entities.

@@ -1,11 +1,11 @@
 ﻿{
-  "Group": "Search Provider",
-  "FriendlyName": "Elasticsearch",
+  "Group": "Search provider",
+  "FriendlyName": "Elasticsearch Search Provider",
   "SystemName": "SearchProvider.Elasticsearch",
-  "Version": "0.0.1",
-  "SupportedVersions": [ "4.70" ],
+  "Version": "0.0.2",
+  "SupportedVersions": [ "4.80" ],
   "Author": "code is life",
   "DisplayOrder": 1,
   "FileName": "Nop.Plugin.SearchProvider.Elasticsearch.dll",
-  "Description": "This plugin introduces the Elasticsearch search provider feature for nopCommerce"
+  "Description": "Integrates Elasticsearch for advanced full-text search in nopCommerce."
 }

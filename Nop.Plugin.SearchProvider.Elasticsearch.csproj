@@ -29,7 +29,11 @@
 		<Content Include="**\Views\**\*.cshtml" CopyToOutputDirectory="Always" />
 		<Content Include="**\Assets\**\*.*" Exclude="**\Assets\**\*.scss" CopyToOutputDirectory="Always" />
 		<Content Include="**\Themes\**\*.*" Exclude="**\Themes\**\*.scss" CopyToOutputDirectory="Always" />
-		<None Remove="views\entitytransfer\List.cshtml" />
+		<None Remove="Areas\Admin\Views\Elasticsearch\Configure.cshtml" />
+		<None Remove="Areas\Admin\Views\Elasticsearch\_Configure.General.cshtml" />
+		<None Remove="Areas\Admin\Views\Elasticsearch\_Configure.Search.cshtml" />
+		<None Remove="Areas\Admin\Views\Elasticsearch\_Configure.Security.cshtml" />
+		<None Remove="Areas\Admin\Views\EntityTransfer\List.cshtml" />
 		<Content Include="logo.png" CopyToOutputDirectory="Always" />
 		<Content Include="plugin.json" CopyToOutputDirectory="Always" />
 	</ItemGroup>
@@ -43,6 +47,26 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ClearPluginAssemblies Include="$(MSBuildProjectDirectory)\..\..\Build\ClearPluginAssemblies.proj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Content Update="Areas\Admin\Views\Elasticsearch\_Configure.General.cshtml">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+	<ItemGroup>
+	  <Content Update="Areas\Admin\Views\Elasticsearch\_Configure.Search.cshtml">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+	<ItemGroup>
+	  <Content Update="Areas\Admin\Views\Elasticsearch\_Configure.Security.cshtml">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+	<ItemGroup>
+	  <Content Update="Areas\Admin\Views\Elasticsearch\Configure.cshtml">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	</ItemGroup>
 
 	<!-- This target execute after "Build" target -->

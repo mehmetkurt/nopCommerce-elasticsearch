@@ -1,0 +1,33 @@
+﻿@model ConfigurationModel
+
+<div class="card-body">
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="Active_OverrideForStore" asp-input="Active" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="Active" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="Active" />
+            <span asp-validation-for="Active"></span>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $(@Html.IdFor(model => model.Active)).change(toggleActive);
+        toggleActive();
+    });
+
+    function toggleActive() {
+        var activeCheckbox = $('#@Html.IdFor(model => model.Active)');
+        if (activeCheckbox.prop('checked')) {
+            $("#elasticsearch-configuration-security").show();
+            $("#elasticsearch-configuration-search").show();
+        }
+        else {
+            $("#elasticsearch-configuration-security").hide();
+            $("#elasticsearch-configuration-search").hide();
+        }
+    }
+</script>

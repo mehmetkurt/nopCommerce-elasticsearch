@@ -1,5 +1,5 @@
-﻿using Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain;
-using Nop.Plugin.SearchProvider.Elasticsearch.Models.Transfers;
+﻿using Nop.Plugin.SearchProvider.Elasticsearch.Areas.Admin.Models.Transfers;
+using Nop.Plugin.SearchProvider.Elasticsearch.Data.Domain;
 
 namespace Nop.Plugin.SearchProvider.Elasticsearch.Factories;
 

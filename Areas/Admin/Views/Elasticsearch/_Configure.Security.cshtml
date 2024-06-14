@@ -1,0 +1,125 @@
+@model ConfigurationModel
+
+<div class="card-body">
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="Hostnames_OverrideForStore" asp-input="Hostnames" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="Hostnames" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="Hostnames" />
+            <span asp-validation-for="Hostnames"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="ConnectionType_OverrideForStore" asp-input="ConnectionType" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="ConnectionType" />
+        </div>
+        <div class="col-md-9">
+            <nop-select asp-for="ConnectionType" asp-items="Model.AvailableConnectionTypes" />
+            <span asp-validation-for="ConnectionType"></span>
+        </div>
+    </div>
+
+    <nop-nested-setting asp-for="ConnectionType" disable-auto-generation="true">
+        <div class="form-group row connection-type-basic">
+            <div class="col-md-3">
+                <nop-override-store-checkbox asp-for="Username_OverrideForStore" asp-input="Username" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                <nop-label asp-for="Username" />
+            </div>
+            <div class="col-md-9">
+                <nop-editor asp-for="Username" />
+                <span asp-validation-for="Username"></span>
+            </div>
+        </div>
+        <div class="form-group row connection-type-basic">
+            <div class="col-md-3">
+                <nop-override-store-checkbox asp-for="Password_OverrideForStore" asp-input="Password" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                <nop-label asp-for="Password" />
+            </div>
+            <div class="col-md-9">
+                <nop-editor asp-for="Password" />
+                <span asp-validation-for="Password"></span>
+            </div>
+        </div>
+        <div class="form-group row connection-type-cloud">
+            <div class="col-md-3">
+                <nop-override-store-checkbox asp-for="CloudId_OverrideForStore" asp-input="CloudId" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                <nop-label asp-for="CloudId" />
+            </div>
+            <div class="col-md-9">
+                <nop-editor asp-for="CloudId" />
+                <span asp-validation-for="CloudId"></span>
+            </div>
+        </div>
+        <div class="form-group row connection-type-api connection-type-cloud">
+            <div class="col-md-3">
+                <nop-override-store-checkbox asp-for="ApiKey_OverrideForStore" asp-input="ApiKey" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                <nop-label asp-for="ApiKey" />
+            </div>
+            <div class="col-md-9">
+                <nop-editor asp-for="ApiKey" />
+                <span asp-validation-for="ApiKey"></span>
+            </div>
+        </div>
+        <div class="form-group row connection-type-basic connection-type-api">
+            <div class="col-md-3">
+                <nop-override-store-checkbox asp-for="UseFingerprint_OverrideForStore" asp-input="UseFingerprint" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                <nop-label asp-for="UseFingerprint" />
+            </div>
+            <div class="col-md-9">
+                <nop-editor asp-for="UseFingerprint" />
+                <span asp-validation-for="UseFingerprint"></span>
+            </div>
+        </div>
+        <nop-nested-setting asp-for="UseFingerprint">
+            <div class="form-group row connection-type-basic connection-type-api">
+                <div class="col-md-3">
+                    <nop-override-store-checkbox asp-for="Fingerprint_OverrideForStore" asp-input="Fingerprint" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                    <nop-label asp-for="Fingerprint" />
+                </div>
+                <div class="col-md-9">
+                    <nop-editor asp-for="Fingerprint" />
+                    <span asp-validation-for="Fingerprint"></span>
+                </div>
+            </div>
+        </nop-nested-setting>
+    </nop-nested-setting>
+</div>
+
+<script>
+    $(function() {
+        $(@Html.IdFor(model => model.ConnectionType)).change(toggleConnectionType);
+        toggleConnectionType();
+    });
+
+    function toggleConnectionType() {
+        var connectionType = Number.parseInt($('#@Html.IdFor(model => model.ConnectionType)').val());
+
+        switch (connectionType)
+        {
+            case @((int)ConnectionType.Basic):
+                $('.connection-type-api').hideElement();
+                $('.connection-type-cloud').hideElement();
+                $('.connection-type-basic').showElement();
+                break;
+                case @((int)ConnectionType.Api):
+                $('.connection-type-basic').hideElement();
+                $('.connection-type-cloud').hideElement();
+                $('.connection-type-api').showElement();
+                break;
+            case @((int)ConnectionType.Cloud):
+                $('.connection-type-basic').hideElement();
+                $('.connection-type-api').hideElement();
+                $('.connection-type-cloud').showElement();
+                break;
+            default:
+                $('.connection-type-basic').hideElement();
+                $('.connection-type-cloud').hideElement();
+                $('.connection-type-api').hideElement();
+                break;
+        }
+    }
+</script>

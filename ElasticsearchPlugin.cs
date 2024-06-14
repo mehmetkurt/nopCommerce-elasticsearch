@@ -1,5 +1,4 @@
-﻿using Elastic.Clients.Elasticsearch;
-using Nop.Core;
+﻿using Nop.Core;
 using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.ScheduleTasks;
 using Nop.Plugin.SearchProvider.Elasticsearch.Repositories;
@@ -79,8 +78,12 @@ public class ElasticsearchPlugin : BasePlugin, ISearchProvider, IAdminMenuPlugin
         { $"{ElasticsearchDefaults.LocalizationPrefix}.Menu.Configuration", "Configuration" },
         { $"{ElasticsearchDefaults.LocalizationPrefix}.Menu.EntityTransfer", "Entity Transfers" },
 
-        { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.BlockTitle.General", "General" },
         { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration", "Elasticsearch Configuration" },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.Tabs.General", "General" },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.Tabs.Security", "Security" },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.Tabs.Search", "Search" },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.Buttons.RebuildIndex", "Rebuild Index" },
+
         { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.Active", "Active" },
         { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.Active.Hint", "Determines whether the Elasticsearch plugin is active. Set to 'true' to enable the plugin." },
         { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.ApiKey", "API Key" },
@@ -113,7 +116,23 @@ public class ElasticsearchPlugin : BasePlugin, ISearchProvider, IAdminMenuPlugin
         { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.Username.NotNull", "Username must not be null." },
         { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.UseFingerprint", "Use Fingerprint" },
         { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.UseFingerprint.Hint", "Indicates whether to use a certificate fingerprint for server verification. Set to 'true' to enable." },
-        
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.SearchType", "Search Type" },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.SearchType.Hint", "Specifies the type of search strategy to use when querying Elasticsearch. " +
+            "Different search types provide varying levels of flexibility and precision in matching query terms against indexed data." +
+            "<br/><br/>" +
+            "For example:" +
+            "<ul>" +
+            "<li><strong>Fuzzy:</strong> Matches terms even if they are slightly misspelled or contain typographical errors. Useful for improving search result recall when user input may vary.</li>" +
+            "<li><strong>Wildcard:</strong> Allows pattern-based searches using wildcards like '*', which match zero or more characters, and '?', which matches a single character. Ideal for advanced searching where partial matching or pattern recognition is needed.</li>" +
+            "<li><strong>Exact:</strong> Strictly matches the query terms to indexed tokens without any variations or extensions. Suitable for precise search requirements where exact matches are essential.</li>" +
+            "</ul>" +
+            "Choose the appropriate search type based on your application's search requirements and user expectations."
+        },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.ResultLimit", "Result Limit" },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.ResultLimit.Hint", "Specifies the maximum number of search results to retrieve from Elasticsearch." },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.ImmediatelyUpdateIndexes", "Immediately Update Indexes" },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.ImmediatelyUpdateIndexes.Hint", "Determines whether changes to indexed documents, such as product names or descriptions, should be applied immediately or scheduled for reindexing." },
+
         // Entity Transfer
         { $"{ElasticsearchDefaults.LocalizationPrefix}.EntityTransfer.List", "Elasticsearch Entity Transfer" },
         { $"{ElasticsearchDefaults.LocalizationPrefix}.EntityTransfer.Fields.EntityName", "Entity Name" },
@@ -140,11 +159,11 @@ public class ElasticsearchPlugin : BasePlugin, ISearchProvider, IAdminMenuPlugin
         { $"{ElasticsearchDefaults.LocalizationPrefix}.EntityTransfer.Search.OperationType", "Operation Type" },
         { $"{ElasticsearchDefaults.LocalizationPrefix}.EntityTransfer.Search.OperationType.Hint", "Select the operation type to filter by." },
         { $"Enums.{ElasticsearchDefaults.LocalizationPrefix}.Settings.ConnectionType.Api", "API Connection" },
-        { $"Enums.{ElasticsearchDefaults.LocalizationPrefix}.Settings.ConnectionType.Api.Hint", "Uses API key for connecting to Elasticsearch." },
         { $"Enums.{ElasticsearchDefaults.LocalizationPrefix}.Settings.ConnectionType.Basic", "Basic Connection" },
-        { $"Enums.{ElasticsearchDefaults.LocalizationPrefix}.Settings.ConnectionType.Basic.Hint", "Uses basic authentication (username and password) for connecting to Elasticsearch." },
         { $"Enums.{ElasticsearchDefaults.LocalizationPrefix}.Settings.ConnectionType.Cloud", "Cloud Connection" },
-        { $"Enums.{ElasticsearchDefaults.LocalizationPrefix}.Settings.ConnectionType.Cloud.Hint", "Connects to a managed Elasticsearch cloud service." },
+        { $"Enums.{ElasticsearchDefaults.LocalizationPrefix}.Settings.SearchType.Fuzzy", "Fuzzy" },
+        { $"Enums.{ElasticsearchDefaults.LocalizationPrefix}.Settings.SearchType.Wildcard", "Wildcard" },
+        { $"Enums.{ElasticsearchDefaults.LocalizationPrefix}.Settings.SearchType.Exact", "Exact" },
         { $"Enums.{ElasticsearchDefaults.LocalizationPrefix}.Data.Domain.OperationType.Inserted", "Inserted" },
         { $"Enums.{ElasticsearchDefaults.LocalizationPrefix}.Data.Domain.OperationType.Updated", "Updated" },
         { $"Enums.{ElasticsearchDefaults.LocalizationPrefix}.Data.Domain.OperationType.Deleted", "Deleted" },
@@ -173,14 +192,17 @@ public class ElasticsearchPlugin : BasePlugin, ISearchProvider, IAdminMenuPlugin
         var elasticsearchSettings = new ElasticsearchSettings
         {
             Active = true,
-            Hostnames = string.Join(";", new[] { "http://localhost:9200" }),
+            Hostnames = string.Join(";", ["http://localhost:9200"]),
             Username = "elastic",
             Password = "elastic",
             ConnectionType = (int)ConnectionType.Basic,
             ApiKey = string.Empty,
             UseFingerprint = false,
             CloudId = string.Empty,
-            Fingerprint = string.Empty
+            Fingerprint = string.Empty,
+            ResultLimit = 100,
+            ImmediatelyUpdateIndexes = true,
+            SearchType = (int)SearchType.Fuzzy
         };
 
         _catalogSettings.ActiveSearchProviderSystemName = ElasticsearchDefaults.PluginSystemName;
@@ -324,15 +346,7 @@ public class ElasticsearchPlugin : BasePlugin, ISearchProvider, IAdminMenuPlugin
     /// </returns>
     public async Task<List<int>> SearchProductsAsync(string keywords, bool isLocalized)
     {
-        var result = await _elasticsearchRepository.FindAsync(p => p.Query(q => q
-            .Match(m => m
-                .Field(f => f.Name)
-                .Fuzziness(new Fuzziness(1))
-                .Query(keywords)
-            )
-        ));
-
-        return result.Select(p => p.Id).ToList();
+        return new List<int>();
     }
 
     #endregion
