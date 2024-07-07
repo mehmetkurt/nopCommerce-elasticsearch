@@ -117,6 +117,7 @@ public class ElasticsearchPlugin : BasePlugin, ISearchProvider, IAdminMenuPlugin
         { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.UseFingerprint", "Use Fingerprint" },
         { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.UseFingerprint.Hint", "Indicates whether to use a certificate fingerprint for server verification. Set to 'true' to enable." },
         { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.SearchType", "Search Type" },
+        { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.SearchType.Select", "Select a Search Type" },
         { $"{ElasticsearchDefaults.LocalizationPrefix}.Configuration.SearchType.Hint", "Specifies the type of search strategy to use when querying Elasticsearch. " +
             "Different search types provide varying levels of flexibility and precision in matching query terms against indexed data." +
             "<br/><br/>" +
