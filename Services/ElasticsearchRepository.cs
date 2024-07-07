@@ -1,10 +1,10 @@
-﻿using Elastic.Clients.Elasticsearch;
+﻿using System.Collections.Immutable;
+using Elastic.Clients.Elasticsearch;
 using Elastic.Clients.Elasticsearch.QueryDsl;
 using Nop.Core;
 using Nop.Data;
 using Nop.Plugin.SearchProvider.Elasticsearch.Services;
 using Nop.Services.Logging;
-using System.Collections.Immutable;
 
 namespace Nop.Plugin.SearchProvider.Elasticsearch.Repositories;
 
