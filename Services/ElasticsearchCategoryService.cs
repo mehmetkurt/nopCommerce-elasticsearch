@@ -107,5 +107,4 @@ public class ElasticsearchCategoryService : CategoryService, IElasticsearchCateg
 
         return categories;
     }
-
 }
